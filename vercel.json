@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/demo",
+      "destination": "https://retriever-demo.vercel.app"
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "https://retriever-demo.vercel.app/:path*"
+    }
+  ]
+}
