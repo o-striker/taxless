@@ -212,6 +212,29 @@
     padding: 0.9rem;
     animation: fadeUp 0.4s ease both;
   }
+
+  .secondary-links {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    animation: fadeUp 0.7s ease 0.55s both;
+  }
+
+  .secondary-link {
+    font-size: 0.85rem;
+    color: var(--brown-mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-200);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .secondary-link:hover {
+    color: var(--brown-dark);
+    border-bottom-color: var(--gold-300);
+  }
 </style>
 </head>
 <body>
@@ -243,6 +266,11 @@
     </div>
     <div class="success-msg" id="successMsg">You're on the list. We'll be in touch.</div>
     <div class="success-msg" id="errorMsg" style="color:#E24B4A;">Something went wrong. Please try again.</div>
+  </div>
+
+  <div class="secondary-links">
+    <a href="https://retriever.tax/demo" class="secondary-link" onclick="if(window.umami) window.umami.track('view-demo-click');">View demo</a>
+    <a href="mailto:andrew@retriever.tax" class="secondary-link" onclick="if(window.umami) window.umami.track('contact-email-click');">Contact: andrew@retriever.tax</a>
   </div>
 
 </div>
