@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service · Retriever</title>
+<meta name="description" content="Terms of Service for Retriever, software that helps you model financial and tax decisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900: #134529;   /* primary brand green */
+    --green-700: #1b5e3a;   /* mid green */
+    --green-tint: #ecf5ef;  /* pale green surface */
+    --green-tint-2: #d4e9d9;
+    --ink: #1c1917;         /* near-black text (stone-900) */
+    --ink-soft: #44403c;    /* stone-700 */
+    --muted: #57534e;       /* stone-600 */
+    --faint: #a8a29e;       /* stone-400 */
+    --paper: #ffffff;
+    --paper-2: #fafaf9;     /* stone-50 */
+    --rule: #e7e5e4;        /* stone-200 */
+    --amber: #d97706;       /* accent, used sparingly */
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background:
+      linear-gradient(180deg, var(--green-tint) 0%, rgba(236, 245, 239, 0.35) 22%, rgba(236, 245, 239, 0) 60%),
+      var(--paper-2);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---- Top bar ---- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 250, 249, 0.82);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-inner {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 15px 28px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .wordmark {
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0;
+    color: var(--green-900);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .doc-nav {
+    display: flex;
+    gap: 20px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .doc-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .doc-nav a:hover { color: var(--green-900); }
+  .doc-nav a[aria-current="page"] {
+    color: var(--green-900);
+    border-bottom-color: var(--green-700);
+  }
+
+  /* ---- Document body ---- */
+  main {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 60px 28px 120px;
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.8rem, 7vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+
+  /* The "Effective ... Version" line is the first <p> right after h1 */
+  h1 + p {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--green-700);
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+  h1 + p strong { font-weight: 500; color: var(--green-700); }
+
+  h2 {
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-weight: 400;
+    font-size: 1.85rem;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 54px 0 14px;
+    color: var(--ink);
+    scroll-margin-top: 80px;
+  }
+
+  h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.005em;
+    margin: 32px 0 10px;
+    color: var(--ink-soft);
+  }
+
+  p { margin: 0 0 18px; color: var(--ink); }
+
+  a {
+    color: var(--green-700);
+    text-decoration: underline;
+    text-decoration-color: var(--green-tint-2);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s ease;
+  }
+  a:hover { text-decoration-color: var(--green-700); }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  ul, ol {
+    margin: 0 0 18px;
+    padding-left: 24px;
+    color: var(--ink);
+  }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--green-700); }
+
+  /* Horizontal rules become quiet section dividers */
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+  /* The first hr (under the effective-date line) gets the green accent */
+  .intro-rule {
+    border-top: 2px solid var(--green-700);
+    width: 56px;
+    margin: 28px 0 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 24px;
+    font-size: 15px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--green-900);
+    background: var(--green-tint);
+    border-bottom: 1.5px solid var(--green-tint-2);
+  }
+
+  /* ---- Footer ---- */
+  footer {
+    background: var(--green-900);
+    color: var(--green-tint);
+    margin-top: 40px;
+  }
+  .footer-inner {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 36px 28px 56px;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer .brand {
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-size: 19px;
+    color: #ffffff;
+  }
+  footer a {
+    color: var(--green-tint);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+  }
+  footer a:hover { opacity: 1; text-decoration: underline; }
+  .footer-links { display: flex; gap: 18px; }
+
+  /* ---- Accessibility / motion ---- */
+  a:focus-visible, .doc-nav a:focus-visible {
+    outline: 2px solid var(--green-700);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    main { padding: 40px 20px 90px; }
+    .topbar-inner { padding: 13px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
+    .doc-nav { gap: 16px; }
+    .footer-inner { padding: 30px 20px 48px; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="wordmark" href="/">Retriever</a>
+      <nav class="doc-nav" aria-label="Legal documents">
+        <a href="/terms" aria-current="page">Terms</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </div>
+  </div>
+  <main>
+        <h1>Terms of Service</h1>
+    <p>Effective June 22, 2026 · Version 1.0</p>
+    <p>Welcome to Retriever. These Terms govern your use of Retriever, including our website and the Retriever software application (the "Service"), operated by Retriever Works Inc. ("Retriever," "we," "us").</p>
+    <p>By agreeing to these Terms, you accept them and our Privacy Policy. If you don't agree, don't use the Service.</p>
+    <hr class="intro-rule" />
+    <h2>1. What Retriever is, and isn't</h2>
+    <p>Retriever is software that helps you model financial and tax decisions, currently in beta. You enter your information, the software models scenarios on your inputs, and you decide what to do with the results.</p>
+    <p>Retriever is not a CPA firm, tax preparer, registered investment adviser, broker-dealer, or law firm. Retriever does not provide tax, legal, accounting, or investment advice; prepare or file tax returns; represent you before the IRS or any state taxing authority; take custody of your money; or recommend specific securities, investments, or transactions for your individual situation.</p>
+    <p>Nothing in the Service creates a tax adviser, attorney, accountant, fiduciary, or investment adviser relationship between you and Retriever. Outputs are educational and informational, not advice.</p>
+    <hr />
+    <h2>2. Estimates, not guarantees</h2>
+    <p>Any savings figures, projections, or scenario outputs the Service shows are modeled projections based on the information you provide and the assumptions built into our models. They are not guarantees, may be inaccurate, and can be treated as a starting point for your own research, not as a final answer. Because Retriever is in beta, errors are possible. Always confirm any number with a qualified tax professional before acting on it.</p>
+    <p>Your actual results will differ from any estimate due to things the Service does not see or model, including state and local rules, changes in tax law, IRS interpretations, prior-year positions, and errors or limitations in the model. We do not warrant the accuracy or completeness of any estimate.</p>
+    <p>You are solely responsible for the accuracy of what you enter, for any tax positions you take, and for any financial decisions you make.</p>
+    <hr />
+    <h2>3. This is beta software</h2>
+    <p>The Service is pre-release. That means:</p>
+    <ul>
+    <li>It may contain bugs, errors, or incorrect outputs.</li>
+    <li>Features may change, break, or be removed without notice.</li>
+    <li>The Service may be unavailable or interrupted at any time.</li>
+    <li>Your access may be modified, suspended, or ended at any time, with or without notice.</li>
+    </ul>
+    <p>Don't rely on the Service as a finished product, and don't represent it as one to others.</p>
+    <hr />
+    <h2>4. Who can use Retriever</h2>
+    <p>To use the Service, you must:</p>
+    <ul>
+    <li>Be at least 18 years old</li>
+    <li>Be a United States resident for tax purposes</li>
+    <li>Not be located in, or a resident of, any country or region subject to U.S. embargo or comprehensive sanctions, and not be on any U.S. government list of prohibited or restricted parties</li>
+    </ul>
+    <p>The Service is intended only for users in the United States. We make no claim that the Service is appropriate or available for use outside the United States.</p>
+    <hr />
+    <h2>5. Using the Service responsibly</h2>
+    <p>Keep access to your account and the email address you use to sign in secure; you're responsible for activity under your account.</p>
+    <p>You agree not to:</p>
+    <ul>
+    <li>Use the Service on behalf of another person without their authorization, or enter someone else's information without their consent</li>
+    <li>Use the Service to plan or facilitate fraudulent tax positions or anything illegal</li>
+    <li>Reverse engineer, scrape, copy, or extract the Service's models, methodology, code, or content</li>
+    <li>Use Service outputs to build or train a competing tool or AI model</li>
+    <li>Resell or commercialize Service outputs without our written permission</li>
+    <li>Interfere with the Service's operation or security</li>
+    </ul>
+    <p>Breaking these rules is grounds for immediate suspension or termination.</p>
+    <hr />
+    <h2>6. Who owns what</h2>
+    <p>We own the Service. That includes the software, models, methodology, calculations, content, brand, and design. We grant you a limited, revocable, personal license to use it for your own tax planning.</p>
+    <p>You own the information you enter. You grant us permission to use it to run the Service for you and to create aggregated, anonymized data that improves our models. We will not sell your personal information.</p>
+    <p>Feedback you give us may be used by us without restriction or payment to you.</p>
+    <hr />
+    <h2>7. Affiliate relationships (future)</h2>
+    <p>Retriever does not currently earn fees from any partner links. If that changes, we will disclose affiliate relationships as required and update these Terms.</p>
+    <hr />
+    <h2>8. Third-party services</h2>
+    <p>We rely on third-party providers to operate the Service, including hosting, analytics, and similar infrastructure. These providers may process information on our behalf under data-protection obligations, as described in our Privacy Policy. We are not responsible for third-party services we do not control, including their availability or any interruption they may cause to the Service.</p>
+    <hr />
+    <h2>9. Disclaimers and limits</h2>
+    <p>The Service is provided "as is," without warranties of any kind. To the fullest extent permitted by law, we disclaim all warranties, including accuracy, fitness for a particular purpose, and uninterrupted operation. We make no warranty that any output is appropriate for your individual situation.</p>
+    <p>To the fullest extent permitted by law, our total liability for any claim is limited to the greater of (a) what you paid us in the prior 12 months, or (b) $100. We are not liable for indirect or consequential damages, lost profits, tax penalties or interest, lost investment returns, or missed deductions.</p>
+    <p>You agree to indemnify us against claims arising from your use of the Service, tax positions you take, decisions you make, your violation of these Terms or any law, or third parties who rely on outputs you share.</p>
+    <hr />
+    <h2>10. Ending your use</h2>
+    <p>You can stop anytime and request deletion of your account by emailing hello@retriever.tax. We may suspend or end your access at any time for any reason. Sections 1, 2, 6, 9, and 11 survive termination.</p>
+    <hr />
+    <h2>11. Legal terms</h2>
+    <p>These Terms are governed by the laws of the State of Delaware. Any dispute will be resolved by binding individual arbitration under the American Arbitration Association's Consumer Arbitration Rules, and you and Retriever each waive the right to participate in a class action. Either party may instead bring an eligible claim in small-claims court.</p>
+    <p>We may update these Terms at any time. The current version will always be posted here, and your continued use of the Service after changes take effect means you accept them. These Terms, together with the Privacy Policy, are the entire agreement between us. If any part is unenforceable, the rest stays in effect.</p>
+    <hr />
+    <p>Questions? hello@retriever.tax · Retriever Works Inc.</p>
+    <p><em>Effective June 22, 2026 · Version 1.0</em></p>
+  </main>
+  <footer>
+    <div class="footer-inner">
+      <span class="brand">Retriever<br><span style="font-family:'Instrument Sans',sans-serif;font-size:12.5px;opacity:0.7;">© 2026 Retriever Works Inc.</span></span>
+      <span class="footer-links">
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:hello@retriever.tax">Contact</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
