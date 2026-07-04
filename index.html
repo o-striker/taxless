@@ -60,16 +60,19 @@
     margin: 0 auto;
     padding: 20px 24px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     gap: 24px;
   }
-  .topnav a {
+  .topnav .wordmark img { width: 28px; height: 28px; }
+  .topnav .wordmark span { font-size: 18px; }
+  .topnav-links { display: flex; align-items: center; gap: 24px; }
+  .topnav-links a {
     font-size: 14px;
     color: var(--stone-600);
     text-decoration: none;
   }
-  .topnav a:hover { color: var(--stone-900); }
+  .topnav-links a:hover { color: var(--stone-900); }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -401,17 +404,18 @@
 
 <!-- ---------- Top nav ---------- -->
 <header class="topnav">
-  <a href="/terms">Terms</a>
-  <a href="/privacy">Privacy</a>
-</header>
-
-<!-- ---------- Hero ---------- -->
-<section class="hero">
   <div class="wordmark">
     <img src="retriever-mascot.webp" alt="">
     <span>Retriever</span>
   </div>
+  <nav class="topnav-links">
+    <a href="/terms">Terms</a>
+    <a href="/privacy">Privacy</a>
+  </nav>
+</header>
 
+<!-- ---------- Hero ---------- -->
+<section class="hero">
   <h1 class="tagline">Graduate students:<br>save money through taxes</h1>
   <p class="subline">Retriever models thousands of scenarios so you can see the strategies that fit your situation.</p>
 
