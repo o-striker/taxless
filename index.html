@@ -360,6 +360,50 @@
   .step h3 { font-size: 18px; font-weight: 500; color: var(--stone-900); margin-bottom: 8px; }
   .step p { font-size: 16px; color: var(--stone-600); line-height: 1.6; }
 
+  /* ---------- FAQ ---------- */
+  .faq-band .band-inner { max-width: 760px; }
+  .faq-list {
+    margin-top: 48px;
+    border-top: 1px solid var(--stone-200);
+    border-bottom: 1px solid var(--stone-200);
+  }
+  .faq-item + .faq-item { border-top: 1px solid var(--stone-200); }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    text-align: left;
+    padding: 20px 0;
+    cursor: pointer;
+  }
+  .faq-q span {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--stone-900);
+    line-height: 1.4;
+  }
+  .faq-q .icon {
+    width: 20px;
+    height: 20px;
+    color: var(--stone-400);
+    transition: transform .2s;
+  }
+  .faq-q:hover .icon { color: var(--stone-600); }
+  .faq-item.open .faq-q .icon { transform: rotate(180deg); }
+  .faq-a {
+    display: none;
+    padding: 0 36px 20px 0;
+    margin-top: -4px;
+  }
+  .faq-item.open .faq-a { display: block; }
+  .faq-a p { font-size: 16px; color: var(--stone-600); line-height: 1.6; }
+  .faq-cta { margin-top: 48px; text-align: center; }
+
   /* ---------- Footer ---------- */
   footer { background: var(--stone-50); border-top: 1px solid var(--stone-200); }
   .footer-inner { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
@@ -526,6 +570,73 @@
   </div>
 </section>
 
+<!-- ---------- FAQ ---------- -->
+<section class="band faq-band">
+  <div class="band-inner">
+    <div class="eyebrow">Questions, answered</div>
+    <h2 class="section-title">Frequently asked questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>How can I save money on taxes when I'm earning less or no money?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>When you're earning a lower income it often means a lower tax bracket, which can open up strategies like Roth Conversion taxed at a lower rate, or selling investment gains at the 0% federal capital gains tax. Retriever models which of these could apply, based on the information you enter, and their estimated value.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Do I have to pay for this?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>Retriever is free to use today.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Is this tax advice?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>No, nothing on this site is tax advice. Retriever shows you modeled scenarios based on the information you enter.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>How accurate are these numbers? What are they based on?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>All of these numbers are calculated by a deterministic optimization engine that reads federal and state tax codes and considers thousands of potential decision points for the financial context you enter. The numbers are estimates based on the information you provide and current tax law. Retriever doesn't see your full tax situation, so treat the output as a starting point to discuss with a professional, not a final answer.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>No, Retriever models tax savings strategies for before you file your taxes. It does not file for you, so you can continue to use any service to file taxes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Who built this? Are you tax professionals?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Does this work if I'm not a US citizen?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>Retriever models federal and state taxes for students filing as US taxpayers. If you're a nonresident alien or have tax-treaty considerations, the tool won't capture those. Talk to a professional who handles international student taxes.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-cta">
+      <a class="hero-cta" href="#signup" data-umami-event="button_click" data-umami-event-id="landing_faq_join_beta">
+        Join the beta
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ---------- Footer ---------- -->
 <footer>
   <div class="footer-inner">
@@ -636,6 +747,15 @@
       if (window.umami) window.umami.track('signup-network-error');
     });
   }
+
+  // FAQ accordion — multiple panels can be open at once
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
 
   submitBtn.addEventListener('click', handleSubmit);
   [nameInput, emailInput, phoneInput].forEach(el => {
