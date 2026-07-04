@@ -54,11 +54,28 @@
 
   .icon { width: 14px; height: 14px; flex: none; }
 
+  /* ---------- Top nav ---------- */
+  .topnav {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+  }
+  .topnav a {
+    font-size: 14px;
+    color: var(--stone-600);
+    text-decoration: none;
+  }
+  .topnav a:hover { color: var(--stone-900); }
+
   /* ---------- Hero ---------- */
   .hero {
     max-width: 880px;
     margin: 0 auto;
-    padding: 56px 24px 64px;
+    padding: 36px 24px 64px;
     text-align: center;
   }
 
@@ -381,6 +398,12 @@
 </style>
 </head>
 <body>
+
+<!-- ---------- Top nav ---------- -->
+<header class="topnav">
+  <a href="/terms">Terms</a>
+  <a href="/privacy">Privacy</a>
+</header>
 
 <!-- ---------- Hero ---------- -->
 <section class="hero">
