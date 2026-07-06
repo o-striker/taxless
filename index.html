@@ -267,6 +267,25 @@
   }
   .field-error.show { display: block; }
 
+  .optional-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--green-600);
+    cursor: pointer;
+  }
+  .optional-toggle:hover { color: var(--green-700); }
+  .optional-toggle .chevron { transition: transform .2s; }
+  .optional-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+  .optional-fields[hidden] { display: none; }
+
   .beta-check {
     display: flex;
     align-items: flex-start;
@@ -505,18 +524,24 @@
           <input type="email" id="emailInput" name="email" placeholder="alex@gmail.com" autocomplete="email">
           <div class="field-error" id="emailError">Please enter a valid email address.</div>
         </div>
-        <div class="field">
-          <label for="nameInput">Name (optional)</label>
-          <input type="text" id="nameInput" name="name" placeholder="Alex Rivera" autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="phoneInput">Phone number (optional)</label>
-          <input type="tel" id="phoneInput" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
-          <div class="field-error" id="phoneError">Please enter a valid phone number.</div>
-        </div>
-        <div class="field">
-          <label for="interestInput">Why are you interested? (optional)</label>
-          <textarea id="interestInput" name="interest" rows="3" placeholder="I'm starting my MBA this fall and…"></textarea>
+        <button type="button" class="optional-toggle" id="optionalToggle" aria-expanded="false" aria-controls="optionalFields">
+          <span>Add more details</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="optional-fields" id="optionalFields" hidden>
+          <div class="field">
+            <label for="nameInput">Name (optional)</label>
+            <input type="text" id="nameInput" name="name" placeholder="Alex Rivera" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="phoneInput">Phone number (optional)</label>
+            <input type="tel" id="phoneInput" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+            <div class="field-error" id="phoneError">Please enter a valid phone number.</div>
+          </div>
+          <div class="field">
+            <label for="interestInput">Why are you interested? (optional)</label>
+            <textarea id="interestInput" name="interest" rows="3" placeholder="I'm starting my MBA this fall and…"></textarea>
+          </div>
         </div>
         <label class="beta-check" for="betaCheck">
           <input type="checkbox" id="betaCheck">
@@ -658,6 +683,20 @@
   const betaCheck = document.getElementById('betaCheck');
   const submitBtn = document.getElementById('submitBtn');
   const errorMsg = document.getElementById('errorMsg');
+  const optionalToggle = document.getElementById('optionalToggle');
+  const optionalFields = document.getElementById('optionalFields');
+
+  // Reveal the optional name/phone/interest fields on demand
+  optionalToggle.addEventListener('click', () => {
+    const open = optionalFields.hasAttribute('hidden');
+    if (open) {
+      optionalFields.removeAttribute('hidden');
+      nameInput.focus();
+    } else {
+      optionalFields.setAttribute('hidden', '');
+    }
+    optionalToggle.setAttribute('aria-expanded', String(open));
+  });
 
   // Track first time user starts typing in email field (only once per page load)
   let typingTracked = false;
