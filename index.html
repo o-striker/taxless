@@ -547,7 +547,7 @@
           <input type="checkbox" id="betaCheck">
           <span>I want to participate in the beta</span>
         </label>
-        <button class="submit-btn" id="submitBtn" disabled>Join the beta</button>
+        <button class="submit-btn" id="submitBtn" disabled>Get updates</button>
         <div class="error-msg" id="errorMsg">Something went wrong. Please try again.</div>
         <p class="fine-print">By joining, you agree to our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
       </div>
@@ -766,7 +766,7 @@
         if (window.umami) window.umami.track('signup-success');
       } else {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Join the beta';
+        submitBtn.textContent = 'Get updates';
         errorMsg.classList.add('show');
         if (window.umami) window.umami.track('signup-server-error');
       }
