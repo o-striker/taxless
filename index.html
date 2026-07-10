@@ -788,6 +788,30 @@
     });
   });
 
+  // Scroll-depth milestones — fires each depth once per page load
+  const scrollFired = {};
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    const pct = (window.scrollY / max) * 100;
+    [25, 50, 75, 100].forEach(d => {
+      if (pct >= d && !scrollFired[d]) {
+        scrollFired[d] = true;
+        if (window.umami) window.umami.track('landing_scroll', { depth: String(d) });
+      }
+    });
+  }, { passive: true });
+
+  // Client errors — error NAME only (never the message, which could embed user input), capped per load
+  let clientErrorsTracked = 0;
+  function trackClientError(name) {
+    if (clientErrorsTracked >= 5 || !window.umami) return;
+    clientErrorsTracked++;
+    window.umami.track('client_error', { name: name || 'unknown' });
+  }
+  window.addEventListener('error', e => trackClientError(e.error && e.error.name));
+  window.addEventListener('unhandledrejection', e => trackClientError(e.reason && e.reason.name));
+
   submitBtn.addEventListener('click', handleSubmit);
   [nameInput, emailInput, phoneInput].forEach(el => {
     el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
