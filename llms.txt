@@ -1,0 +1,16 @@
+# Retriever
+
+> Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students , with IRS citations on every figure.
+
+Retriever models tax-saving strategies such as Roth conversions, 0% long-term capital gains harvesting, and 529 contributions based on the numbers a user enters. All figures are computed by a deterministic calculation engine, never an LLM, and every figure carries an IRS citation. Retriever does not file taxes and does not provide tax advice; it shows modeled scenarios based on the information the user enters.
+
+## Pages
+
+- [Home](https://www.retriever.tax/): What Retriever models, how it works, frequently asked questions, and the waitlist.
+- [Demo](https://www.retriever.tax/demo): A password protected interactive demo showing modeled tax strategies for a sample graduate student.
+- [Privacy Policy](https://www.retriever.tax/privacy): How Retriever handles user data.
+- [Terms of Service](https://www.retriever.tax/terms): Terms governing use of Retriever.
+
+## Contact
+
+- Email: hello@retriever.tax

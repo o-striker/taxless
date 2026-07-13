@@ -12,11 +12,121 @@
 <meta property="og:image" content="https://www.retriever.tax/og-card.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
+<link rel="canonical" href="https://www.retriever.tax/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retriever — Tax modeling for graduate students">
+<meta name="twitter:description" content="Retriever models thousands of scenarios so you can see the strategies that fit your situation.">
+<meta name="twitter:image" content="https://www.retriever.tax/og-card.png">
 <link rel="icon" type="image/png" href="retriever-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="734b31b9-670c-4a86-adf6-1338f62a15c1"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.retriever.tax/#organization",
+      "name": "Retriever",
+      "url": "https://www.retriever.tax/",
+      "logo": "https://www.retriever.tax/retriever-logo.png",
+      "description": "Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students during their low-income school years, with IRS citations on every figure.",
+      "email": "hello@retriever.tax",
+      "founder": {
+        "@type": "Person",
+        "name": "Andrew Oestreicher",
+        "description": "Columbia MBA/MS candidate ('27), previously spent 5 years building financial products at a fintech."
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.retriever.tax/#website",
+      "name": "Retriever",
+      "url": "https://www.retriever.tax/",
+      "publisher": { "@id": "https://www.retriever.tax/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.retriever.tax/#app",
+      "name": "Retriever",
+      "url": "https://www.retriever.tax/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Tax modeling software for graduate students. Retriever models tax-saving strategies such as Roth conversions, 0% long-term capital gains harvesting, and 529 contributions based on the numbers you enter, with IRS citations on every figure. It does not file taxes and does not provide tax advice.",
+      "publisher": { "@id": "https://www.retriever.tax/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.retriever.tax/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can I save money on taxes when I'm earning less or no money?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When you're earning a lower income it often means a lower tax bracket, which can open up strategies like Roth Conversion taxed at a lower rate, or selling investment gains at the 0% federal capital gains tax. Retriever models which of these could apply, based on the information you enter, and their estimated value."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to pay for this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Retriever is free to use today."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tax advice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, nothing on this site is tax advice. Retriever shows you modeled scenarios based on the information you enter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are these numbers? What are they based on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All of these numbers are calculated by a deterministic optimization engine that reads federal and state tax codes and considers thousands of potential decision points for the financial context you enter. The numbers are estimates based on the information you provide and current tax law. Retriever doesn't see your full tax situation, so treat the output as a starting point to discuss with a professional, not a final answer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, Retriever models tax savings strategies for before you file your taxes. It does not file for you, so you can continue to use any service to file taxes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who built this? Are you tax professionals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work if I'm not a US citizen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Retriever models federal and state taxes for students filing as US taxpayers. If you're a nonresident alien or have tax-treaty considerations, the tool won't capture those. Talk to a professional who handles international student taxes."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   :root {
     /* Money Green scale (beta design system) */
@@ -25,6 +135,7 @@
     --green-500: #2e8553;
     --green-600: #1b5e3a;
     --green-700: #134529;
+    --green-800: #0e3621;
     /* Stone grays */
     --stone-900: #1c1917;
     --stone-700: #44403c;
@@ -54,25 +165,62 @@
 
   .icon { width: 14px; height: 14px; flex: none; }
 
-  /* ---------- Top nav ---------- */
+  /* ---------- Top nav (mirrors beta app PublicNav — green sticky bar) ---------- */
   .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--green-700);
+  }
+  .topnav-inner {
     max-width: 960px;
     margin: 0 auto;
-    padding: 20px 24px 0;
+    padding: 0 24px;
+    height: 60px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
   }
+  .topnav .wordmark { text-decoration: none; }
   .topnav .wordmark img { width: 28px; height: 28px; }
-  .topnav .wordmark span { font-size: 18px; }
+  .topnav .wordmark span { font-size: 18px; color: #ffffff; }
   .topnav-links { display: flex; align-items: center; gap: 24px; }
   .topnav-links a {
     font-size: 14px;
-    color: var(--stone-600);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
+    transition: color .15s;
   }
-  .topnav-links a:hover { color: var(--stone-900); }
+  .topnav-links a:hover { color: #ffffff; }
+  .topnav-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .nav-btn-primary {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-800);
+    background: #ffffff;
+    border-radius: 9999px;
+    padding: 8px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+  .nav-btn-primary:hover { background: var(--green-50); }
+  .nav-btn-ghost {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 8px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+  .nav-btn-ghost:hover { background: rgba(255, 255, 255, 0.25); }
+
+  /* Offset in-page anchor targets so the sticky header doesn't overlap them */
+  #signup, #how-it-works, #faq { scroll-margin-top: 76px; }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -449,6 +597,10 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 720px) {
+    .topnav-links { display: none; }
+    .topnav-inner { gap: 10px; padding: 0 16px; }
+    .topnav .wordmark span { font-size: 16px; }
+    .nav-btn-primary, .nav-btn-ghost { font-size: 13px; padding: 7px 12px; }
     .tagline { font-size: 36px; }
     .subline { font-size: 17px; }
     .trust-strip { flex-direction: column; padding: 28px 24px; gap: 20px; }
@@ -466,14 +618,20 @@
 
 <!-- ---------- Top nav ---------- -->
 <header class="topnav">
-  <div class="wordmark">
-    <img src="retriever-mascot.webp" alt="">
-    <span>Retriever</span>
+  <div class="topnav-inner">
+    <a class="wordmark" href="/" aria-label="Retriever home" data-umami-event="nav_click" data-umami-event-target="header-logo">
+      <img src="retriever-mascot.webp" alt="">
+      <span>Retriever</span>
+    </a>
+    <nav class="topnav-links">
+      <a href="#how-it-works" data-umami-event="nav_click" data-umami-event-target="header-how-it-works">How it works</a>
+      <a href="#faq" data-umami-event="nav_click" data-umami-event-target="header-faq">FAQ</a>
+    </nav>
+    <div class="topnav-actions">
+      <a class="nav-btn-ghost" href="/demo" data-umami-event="nav_click" data-umami-event-target="header-view-demo">View Demo</a>
+      <a class="nav-btn-primary" href="https://beta.retriever.tax" data-umami-event="nav_click" data-umami-event-target="header-visit-beta">Visit Beta</a>
+    </div>
   </div>
-  <nav class="topnav-links">
-    <a href="/terms">Terms</a>
-    <a href="/privacy">Privacy</a>
-  </nav>
 </header>
 
 <!-- ---------- Hero ---------- -->
@@ -560,7 +718,7 @@
 </section>
 
 <!-- ---------- How it works ---------- -->
-<section class="band how-band">
+<section class="band how-band" id="how-it-works">
   <div class="band-inner">
     <div class="eyebrow">How it works</div>
     <h2 class="section-title">Three steps. About fifteen minutes.</h2>
@@ -595,7 +753,7 @@
 </section>
 
 <!-- ---------- FAQ ---------- -->
-<section class="band faq-band">
+<section class="band faq-band" id="faq">
   <div class="band-inner">
     <div class="eyebrow">Questions, answered</div>
     <h2 class="section-title">Frequently asked questions</h2>
@@ -811,6 +969,24 @@
   }
   window.addEventListener('error', e => trackClientError(e.error && e.error.name));
   window.addEventListener('unhandledrejection', e => trackClientError(e.reason && e.reason.name));
+
+  // Catch-all click instrumentation — every click emits an event so nothing
+  // goes unmeasured. Elements carrying their own data-umami-event (CTAs, header
+  // links) are already tracked by umami's built-in auto-tracker, so we skip them
+  // here to avoid double counting. We NEVER read input VALUES (PII) — only stable
+  // element identifiers/labels (id, aria-label, or a control's own static text).
+  document.addEventListener('click', e => {
+    if (!window.umami) return;
+    if (e.target.closest('[data-umami-event]')) return; // umami already tracks these
+    const node = e.target.closest('a, button, input, textarea, select, label, summary, [role="button"]') || e.target;
+    const tag = (node.tagName || '').toLowerCase() || 'unknown';
+    let target = node.id || node.getAttribute('aria-label') || '';
+    // Only pull visible text from non-input controls (safe, static labels)
+    if (!target && (tag === 'a' || tag === 'button' || tag === 'summary')) {
+      target = (node.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+    }
+    window.umami.track('click', { tag: tag, target: target || tag });
+  }, true);
 
   submitBtn.addEventListener('click', handleSubmit);
   [nameInput, emailInput, phoneInput].forEach(el => {
