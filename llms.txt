@@ -1,6 +1,6 @@
 # Retriever
 
-> Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students , with IRS citations on every figure.
+> Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students, with IRS citations on every figure.
 
 Retriever models tax-saving strategies such as Roth conversions, 0% long-term capital gains harvesting, and 529 contributions based on the numbers a user enters. All figures are computed by a deterministic calculation engine, never an LLM, and every figure carries an IRS citation. Retriever does not file taxes and does not provide tax advice; it shows modeled scenarios based on the information the user enters.
 
