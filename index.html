@@ -972,15 +972,19 @@
   window.addEventListener('error', e => trackClientError(e.error && e.error.name));
   window.addEventListener('unhandledrejection', e => trackClientError(e.reason && e.reason.name));
 
-  // Catch-all click instrumentation — every click emits an event so nothing
-  // goes unmeasured. Elements carrying their own data-umami-event (CTAs, header
-  // links) are already tracked by umami's built-in auto-tracker, so we skip them
-  // here to avoid double counting. We NEVER read input VALUES (PII) — only stable
-  // element identifiers/labels (id, aria-label, or a control's own static text).
+  // Interactive-element click instrumentation — tracks clicks on real controls
+  // (links, buttons, inputs, etc.) that don't already carry their own
+  // data-umami-event. Clicks on plain body text (p, headings, whitespace) are
+  // ignored so they don't flood analytics with meaningless tag:p noise.
+  // Elements carrying their own data-umami-event (CTAs, header links) are already
+  // tracked by umami's built-in auto-tracker, so we skip them here to avoid double
+  // counting. We NEVER read input VALUES (PII) — only stable element
+  // identifiers/labels (id, aria-label, or a control's own static text).
   document.addEventListener('click', e => {
     if (!window.umami) return;
     if (e.target.closest('[data-umami-event]')) return; // umami already tracks these
-    const node = e.target.closest('a, button, input, textarea, select, label, summary, [role="button"]') || e.target;
+    const node = e.target.closest('a, button, input, textarea, select, label, summary, [role="button"]');
+    if (!node) return; // ignore clicks on plain text / non-interactive elements
     const tag = (node.tagName || '').toLowerCase() || 'unknown';
     let target = node.id || node.getAttribute('aria-label') || '';
     // Only pull visible text from non-input controls (safe, static labels)
