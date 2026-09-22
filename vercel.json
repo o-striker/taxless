@@ -9,5 +9,15 @@
       "source": "/demo/:path*",
       "destination": "https://retriever-demo.vercel.app/:path*"
     }
+  ],
+  "headers": [
+    {
+      "source": "/new-parents",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/new-parents/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }

@@ -12,3 +12,8 @@ node_modules/
 # Editor
 .vscode/
 .idea/
+
+# Vercel / secrets
+.vercel
+.env
+.env.*

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Retriever for New Parents (Private Demo)</title>
+<link rel="icon" type="image/png" href="/retriever-logo.png">
+</head>
+<body style="margin:0;background:#78716c;">
+<div id="access-gate" style="position:fixed;inset:0;z-index:9999;background:#78716c;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:'Instrument Sans',ui-sans-serif,system-ui,sans-serif;">
+  <div style="width:100%;max-width:440px;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.28);">
+    <div style="height:6px;background:#f59e0b;"></div>
+    <div style="padding:32px 36px 36px;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+        <span style="flex:none;width:46px;height:46px;border-radius:50%;background:#fef3c7;display:flex;align-items:center;justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </span>
+        <h1 style="margin:0;font-family:'Instrument Serif',ui-serif,Georgia,serif;font-size:30px;font-weight:400;color:#1c1917;line-height:1.1;">Retriever for New Parents</h1>
+      </div>
+      <div style="background:#fffbeb;border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+        <p style="margin:0;font-size:15.5px;line-height:1.55;color:#78350f;">THIS IS AN ILLUSTRATIVE PREVIEW. All numbers, strategies, and savings figures shown are for demonstration only, they are hard-coded and do not reflect calculations on your actual financial data.</p>
+      </div>
+      <p style="margin:0 0 22px;font-size:15.5px;color:#57534e;">This is a private demo preview for invited reviewers.</p>
+      <label style="display:flex;align-items:flex-start;gap:12px;margin-bottom:22px;cursor:pointer;">
+        <input id="access-gate-check" type="checkbox" style="flex:none;width:18px;height:18px;margin-top:2px;accent-color:#1b5e3a;cursor:pointer;">
+        <span style="font-size:15px;line-height:1.5;color:#44403c;">I understand THIS IS AN ILLUSTRATIVE DEMO, not financial or tax advice.</span>
+      </label>
+      <form id="access-gate-form" autocomplete="off">
+        <label for="access-gate-input" style="display:block;font-size:14px;font-weight:600;color:#44403c;margin-bottom:8px;">Access password</label>
+        <div style="position:relative;margin-bottom:6px;">
+          <input id="access-gate-input" type="password" placeholder="Enter the access password" aria-label="Access password" style="width:100%;box-sizing:border-box;background:#eef2ff;border:1px solid transparent;color:#1c1917;border-radius:12px;padding:15px 70px 15px 18px;font-size:15px;outline:none;">
+          <button type="button" id="access-gate-toggle" aria-label="Show password" style="position:absolute;top:50%;right:16px;transform:translateY(-50%);background:none;border:none;display:flex;align-items:center;gap:5px;color:#57534e;font-size:14px;cursor:pointer;padding:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span id="access-gate-toggle-label">Show</span>
+          </button>
+        </div>
+        <div id="access-gate-error" style="height:18px;font-size:13px;color:#dc2626;opacity:0;transition:opacity .15s;">Incorrect password. Try again.</div>
+        <button type="submit" id="access-gate-submit" disabled style="width:100%;margin-top:10px;background:#f5f5f4;color:#a8a29e;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:600;cursor:not-allowed;transition:background .15s,color .15s;">
+          Unlock the prototype
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    // The password is verified server-side by /api/unlock, which sets an
+    // HttpOnly session cookie the edge middleware checks. Nothing is persisted here.
+    var form = document.getElementById("access-gate-form");
+    var input = document.getElementById("access-gate-input");
+    var error = document.getElementById("access-gate-error");
+    var check = document.getElementById("access-gate-check");
+    var submit = document.getElementById("access-gate-submit");
+    var toggle = document.getElementById("access-gate-toggle");
+    var toggleLabel = document.getElementById("access-gate-toggle-label");
+    var busy = false;
+    function setEnabled(on) {
+      submit.disabled = !on;
+      submit.style.cursor = on ? "pointer" : "not-allowed";
+      submit.style.background = on ? "#1b5e3a" : "#f5f5f4";
+      submit.style.color = on ? "#ffffff" : "#a8a29e";
+    }
+    function refresh() { setEnabled(!busy && check.checked && input.value.length > 0); }
+    function showError(msg) {
+      error.textContent = msg || "Incorrect password. Try again.";
+      error.style.opacity = "1";
+    }
+    check.addEventListener("change", refresh);
+    input.addEventListener("input", function () { error.style.opacity = "0"; refresh(); });
+    toggle.addEventListener("click", function () {
+      var show = input.type === "password";
+      input.type = show ? "text" : "password";
+      toggleLabel.textContent = show ? "Hide" : "Show";
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy || !check.checked || !input.value) return;
+      busy = true; refresh();
+      submit.textContent = "Checking…";
+      fetch("/api/new-parents-unlock", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ password: input.value, ack: check.checked === true })
+      }).then(function (res) {
+        submit.textContent = "Unlock the prototype";
+        if (res.ok) { location.reload(); return; }
+        busy = false; refresh();
+        showError("Incorrect password. Try again.");
+        input.value = ""; refresh(); input.focus();
+      }).catch(function () {
+        busy = false; submit.textContent = "Unlock the prototype"; refresh();
+        showError("Couldn't verify right now. Try again.");
+      });
+    });
+  })();
+</script>
+</body>
+</html>
