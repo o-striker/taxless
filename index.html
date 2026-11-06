@@ -100,6 +100,14 @@
         },
         {
           "@type": "Question",
+          "name": "What is the estimated savings counter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -303,6 +311,69 @@
     line-height: 1.4;
     max-width: 340px;
   }
+  /* ---------- Savings counter (split-flap board, replaces the static figure when current) ---------- */
+  .counter-block { display: flex; flex-direction: column; align-items: center; }
+  .flap-board {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 4px;
+    font-size: clamp(26px, 7vw, 46px);
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .flap-tile {
+    position: relative;
+    width: 0.9em;
+    height: 1.3em;
+    border-radius: 0.15em;
+    background: var(--green-800);
+    color: #ffffff;
+    perspective: 300px;
+  }
+  .flap-half {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 50%;
+    overflow: hidden;
+    background: var(--green-800);
+  }
+  .flap-top { top: 0; border-radius: 0.15em 0.15em 0 0; }
+  .flap-bottom { bottom: 0; border-radius: 0 0 0.15em 0.15em; }
+  .flap-half b {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.3em;
+    line-height: 1.3em;
+    text-align: center;
+    font-weight: 600;
+  }
+  .flap-top b { top: 0; }
+  .flap-bottom b { bottom: 0; }
+  .flap-tile::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 3;
+  }
+  .flap-fold {
+    z-index: 2;
+    transform-origin: bottom;
+    backface-visibility: hidden;
+    animation: flap-fold 45ms ease-in forwards;
+  }
+  @keyframes flap-fold { to { transform: rotateX(-90deg); } }
+  .flap-symbol { color: var(--green-700); text-align: center; padding: 0 0.04em; }
+  .counter-as-of { margin-top: 8px; font-size: 13px; color: var(--stone-600); }
+  @media (max-width: 400px) { .flap-board { gap: 3px; } }
+
   .trust-chips {
     display: flex;
     flex-direction: column;
@@ -791,6 +862,13 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
+          <span>What is the estimated savings counter?</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a"><p>The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
           <span>Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?</span>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
@@ -1000,5 +1078,9 @@
   });
 </script>
 
+<script type="module">
+  import { startSavingsCounter } from '/lib/savings-counter-board.js';
+  startSavingsCounter(document.querySelector('.trust-main'));
+</script>
 </body>
 </html>
