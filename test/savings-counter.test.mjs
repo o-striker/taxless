@@ -10,7 +10,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 const {
-  parseCounterResponse, parseCounterRow, tileDigits, commaPositions, countUpValues, formatAsOfDate,
+  parseCounterResponse, parseCounterRow, tileDigits, commaPositions, countUpValueAt, flipDecision, formatAsOfDate,
 } = await import('../lib/savings-counter.js');
 const { fetchCurrentCounter } = await import('../api/savings-counter.js');
 
@@ -64,18 +64,49 @@ test('commaPositions: a comma before every third tile from the right', () => {
   assert.deepEqual(commaPositions(9), [3, 6]);
 });
 
-test('countUpValues: starts at 0, ends exactly on the total, never decreases', () => {
-  const values = countUpValues(1284560);
-  assert.equal(values.length, 23); // ceil(1200 / 55) + 1
-  assert.equal(values[0], 0);
-  assert.equal(values.at(-1), 1284560);
-  for (let i = 1; i < values.length; i++) assert.ok(values[i] >= values[i - 1], `step ${i} decreased`);
+// Andrew, 2026-11-06: same 1.2 seconds, far more frames. The board now asks for the value at every
+// screen refresh (60 to 120 a second) instead of stepping every 55 milliseconds.
+test('countUpValueAt: 0 at the start, the exact total at 1200 milliseconds and after', () => {
+  assert.equal(countUpValueAt(1284560, 0), 0);
+  assert.equal(countUpValueAt(1284560, 1200), 1284560);
+  assert.equal(countUpValueAt(1284560, 5000), 1284560);
 });
 
-test('countUpValues: a tiny total still ends exactly on it', () => {
-  const values = countUpValues(7);
-  assert.equal(values.at(-1), 7);
-  for (let i = 1; i < values.length; i++) assert.ok(values[i] >= values[i - 1]);
+test('countUpValueAt: ease-out cubic, floored to whole dollars', () => {
+  // Halfway through: 1 - (0.5)^3 = 0.875 of the total.
+  assert.equal(countUpValueAt(1284560, 600), Math.floor(1284560 * 0.875));
+});
+
+test('countUpValueAt: never decreases at 120 frames a second, and never overshoots', () => {
+  let previous = -1;
+  for (let elapsed = 0; elapsed <= 1250; elapsed += 1000 / 120) {
+    const value = countUpValueAt(1284560, elapsed);
+    assert.ok(value >= previous, `decreased at ${elapsed} milliseconds`);
+    assert.ok(value <= 1284560);
+    previous = value;
+  }
+  assert.equal(previous, 1284560);
+});
+
+test('countUpValueAt: a tiny total still ends exactly on it', () => {
+  assert.equal(countUpValueAt(7, 1200), 7);
+  assert.equal(countUpValueAt(7, 0), 0);
+});
+
+test('flipDecision: a changed digit on a resting tile starts a 45 millisecond flip', () => {
+  assert.deepEqual(flipDecision('3', '4', 1000, 0), { startFlip: true, flipEndsAt: 1045 });
+});
+
+test('flipDecision: an unchanged digit never flips', () => {
+  assert.deepEqual(flipDecision('4', '4', 1000, 0), { startFlip: false, flipEndsAt: 0 });
+});
+
+test('flipDecision: a digit that changes mid-flip updates in place, no new flip', () => {
+  assert.deepEqual(flipDecision('4', '5', 1020, 1045), { startFlip: false, flipEndsAt: 1045 });
+});
+
+test('flipDecision: once the flip has finished, the next change flips again', () => {
+  assert.deepEqual(flipDecision('5', '6', 1045, 1045), { startFlip: true, flipEndsAt: 1090 });
 });
 
 test('formatAsOfDate: the calendar day as written, for a visitor west of UTC', () => {
