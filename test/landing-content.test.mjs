@@ -126,3 +126,21 @@ test('form confirmation and consent line', () => {
   assert.ok(body.includes('By submitting, you agree to our'));
   assert.ok(!body.includes('By joining') && !body.includes("You're in."));
 });
+
+test('intake panel answers are real buttons grouped by question', () => {
+  const panel = body.slice(body.indexOf('id="intakePanel"'), body.indexOf('class="step flip"'));
+  assert.ok(body.includes('id="intakePanel"'));
+  assert.ok(!panel.includes('role="img"'));
+  assert.equal((panel.match(/role="group"/g) || []).length, 2);
+  assert.equal((panel.match(/<button type="button" class="opt/g) || []).length, 7);
+  assert.equal((panel.match(/aria-pressed="true"/g) || []).length, 2);
+});
+
+test('intake banner: hidden without JavaScript, sends people to the email form, tracks only an event name', () => {
+  assert.match(body, /<div class="intake-banner"[^>]*hidden/);
+  assert.ok(body.includes('Ready to try it with your numbers?'));
+  assert.ok(html.includes('landing_intake_banner_cta'));
+  assert.ok(html.includes("window.umami.track('intake_panel_click')"));
+  // The chosen answer is never sent to analytics.
+  assert.ok(!/umami\.track\('intake_panel_click',/.test(html));
+});

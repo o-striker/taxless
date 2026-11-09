@@ -283,8 +283,17 @@
   .mini .q { font-size: 13px; color: var(--stone-500); }
   .mini .q + .opts + .q { margin-top: 18px; }
   .mini .opts { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .mini .opts span { padding: 10px 14px; border-radius: 10px; border: 1px solid var(--stone-300); background: #ffffff; font-size: 14px; }
-  .mini .opts span.on { border-color: var(--green-600); background: var(--green-50); color: var(--green-700); font-weight: 600; }
+  .mini .opt { font: inherit; font-size: 14px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--stone-300); background: #ffffff; color: var(--stone-900); cursor: pointer; transition: border-color .15s, background .15s; }
+  .mini .opt:hover { border-color: var(--green-500); }
+  .mini .opt[aria-pressed="true"] { border-color: var(--green-600); background: var(--green-50); color: var(--green-700); font-weight: 600; }
+
+  /* ---------- Intake banner: shown after a visitor taps an answer in the step 1 panel ---------- */
+  .intake-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--green-800); color: #ffffff; box-shadow: 0 8px 24px -12px rgba(0,0,0,.5); transform: translateY(-100%); transition: transform .3s ease; }
+  .intake-banner.show { transform: none; }
+  .intake-banner .wrap { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 68px; padding-top: 10px; padding-bottom: 10px; }
+  .intake-banner span { font-size: 16px; font-weight: 600; }
+  .intake-close { font: inherit; font-size: 22px; line-height: 1; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.12); color: #ffffff; cursor: pointer; flex: none; }
+  .intake-close:hover { background: rgba(255,255,255,.22); }
   .mini .row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 8px 0; border-bottom: 1px dashed var(--stone-300); }
   .mini .row:last-of-type { border: 0; }
   .mini .row.total { font-weight: 600; }
@@ -369,6 +378,10 @@
     .faq-list summary { font-size: 16.5px; }
     .faq-list details p { padding-right: 0; }
     .sticky-top { display: none; }
+    .intake-banner .wrap { justify-content: space-between; gap: 10px; min-height: 64px; }
+    .intake-banner span { font-size: 15px; line-height: 1.25; min-width: 0; }
+    .intake-banner .btn-gold { flex: none; padding: 12px 14px; font-size: 15px; }
+    .intake-close { width: 32px; height: 32px; font-size: 20px; }
     .sticky-bar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 10px 10px 16px; border-radius: 14px; background: var(--green-800); color: #ffffff; box-shadow: 0 24px 60px -16px rgba(0,0,0,.55); transform: translateY(160%); transition: transform .3s ease; }
     .sticky-bar.show { transform: none; }
     .sticky-bar[hidden] { display: none; }
@@ -469,11 +482,11 @@
 
     <div class="step">
       <div class="step-text"><div class="step-num">Step 1</div><h3>Tell us about your situation</h3><p>Answer questions about your timeline, school, and accounts.</p></div>
-      <div class="mini" role="img" aria-label="Illustration of the Retriever intake questions">
-        <div class="q">Do you have a retirement account?</div>
-        <div class="opts"><span>401(k)</span><span>IRA</span><span class="on">Both</span><span>Neither</span></div>
-        <div class="q">When do you start school?</div>
-        <div class="opts"><span class="on">Fall 2027</span><span>Spring 2028</span><span>Already enrolled</span></div>
+      <div class="mini" id="intakePanel">
+        <div class="q" id="intakeQ1">Do you have a retirement account?</div>
+        <div class="opts" role="group" aria-labelledby="intakeQ1"><button type="button" class="opt" aria-pressed="false">401(k)</button><button type="button" class="opt" aria-pressed="false">IRA</button><button type="button" class="opt" aria-pressed="true">Both</button><button type="button" class="opt" aria-pressed="false">Neither</button></div>
+        <div class="q" id="intakeQ2">When do you start school?</div>
+        <div class="opts" role="group" aria-labelledby="intakeQ2"><button type="button" class="opt" aria-pressed="true">Fall 2027</button><button type="button" class="opt" aria-pressed="false">Spring 2028</button><button type="button" class="opt" aria-pressed="false">Already enrolled</button></div>
       </div>
     </div>
 
@@ -551,6 +564,15 @@
     <p>© 2026 Retriever Works Inc.</p>
   </div>
 </footer>
+
+<!-- ---------- Intake banner (revealed by script when a visitor taps an answer in the step 1 panel) ---------- -->
+<div class="intake-banner" id="intakeBanner" role="region" aria-label="Get early access" hidden>
+  <div class="wrap">
+    <span>Ready to try it with your numbers?</span>
+    <button type="button" class="btn-gold" id="intakeBannerCta" data-umami-event="button_click" data-umami-event-id="landing_intake_banner_cta">Get early access</button>
+    <button type="button" class="intake-close" id="intakeBannerClose" aria-label="Close">&times;</button>
+  </div>
+</div>
 
 <!-- ---------- Sticky call to action (revealed by script once the hero form scrolls away) ---------- -->
 <div class="sticky-top" id="stickyTop" hidden>
@@ -640,9 +662,10 @@
   stickyTop.hidden = false;
   stickyBar.hidden = false;
   let formPassed = false, footerOn = false;
+  let bannerOn = false;
   const updateSticky = () => {
-    stickyTop.classList.toggle('show', formPassed);
-    stickyBar.classList.toggle('show', formPassed && !footerOn);
+    stickyTop.classList.toggle('show', formPassed && !bannerOn);
+    stickyBar.classList.toggle('show', formPassed && !footerOn && !bannerOn);
   };
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
@@ -656,6 +679,36 @@
     heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (document.getElementById('formFields').style.display !== 'none') emailInput.focus({ preventScroll: true });
   }));
+
+  // Intake panel: the step 1 answers are tappable. Tapping one selects it and, the first time,
+  // slides in a banner pointing to the email form. Only the event name goes to analytics, never
+  // the answer chosen.
+  const intakeBanner = document.getElementById('intakeBanner');
+  let bannerShownOnce = false;
+  const setBanner = (on) => {
+    bannerOn = on;
+    intakeBanner.classList.toggle('show', on);
+    updateSticky();
+  };
+  document.querySelectorAll('#intakePanel .opts').forEach(group => {
+    group.addEventListener('click', e => {
+      const opt = e.target.closest('.opt');
+      if (!opt) return;
+      group.querySelectorAll('.opt').forEach(o => o.setAttribute('aria-pressed', String(o === opt)));
+      if (window.umami) window.umami.track('intake_panel_click');
+      if (!bannerShownOnce) {
+        bannerShownOnce = true;
+        intakeBanner.hidden = false;
+        requestAnimationFrame(() => setBanner(true));
+      }
+    });
+  });
+  document.getElementById('intakeBannerClose').addEventListener('click', () => setBanner(false));
+  document.getElementById('intakeBannerCta').addEventListener('click', () => {
+    setBanner(false);
+    heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (document.getElementById('formFields').style.display !== 'none') emailInput.focus({ preventScroll: true });
+  });
 
   // Scroll-depth milestones — fires each depth once per page load
   const scrollFired = {};
