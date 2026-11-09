@@ -140,7 +140,16 @@ test('intake banner: hidden without JavaScript, sends people to the email form, 
   assert.match(body, /<div class="intake-banner"[^>]*hidden/);
   assert.ok(body.includes('Ready to try it with your numbers?'));
   assert.ok(html.includes('landing_intake_banner_cta'));
-  assert.ok(html.includes("window.umami.track('intake_panel_click')"));
-  // The chosen answer is never sent to analytics.
-  assert.ok(!/umami\.track\('intake_panel_click',/.test(html));
+  // Regression (2026-11-09): the general click tracker sent each answer's text ("IRA", "Neither")
+  // as the click target. Every answer button now carries its own data-umami-event, which that
+  // tracker skips and which Umami records as the bare event name, with no properties.
+  const panel = body.slice(body.indexOf('id="intakePanel"'), body.indexOf('class="step flip"'));
+  const answers = panel.match(/<button type="button" class="opt[^>]*>/g) || [];
+  assert.equal(answers.length, 7);
+  for (const tag of answers) {
+    assert.ok(tag.includes('data-umami-event="intake_panel_click"'), tag);
+    assert.ok(!tag.includes('data-umami-event-'), tag);
+  }
+  assert.ok(html.includes("if (e.target.closest('[data-umami-event]')) return;"));
+  assert.ok(!html.includes("umami.track('intake_panel_click'"));
 });
