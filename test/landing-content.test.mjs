@@ -119,3 +119,10 @@ test('sticky call to action is hidden without JavaScript and returns to the hero
   assert.ok(html.includes('landing_sticky_cta'));
   assert.ok(html.includes("getElementById('heroForm')"));
 });
+
+test('form confirmation and consent line', () => {
+  assert.ok(body.includes('<div class="success-title">Received</div>'));
+  assert.ok(body.includes('<div class="success-body">We\'ll be in touch.</div>'));
+  assert.ok(body.includes('By submitting, you agree to our'));
+  assert.ok(!body.includes('By joining') && !body.includes("You're in."));
+});
