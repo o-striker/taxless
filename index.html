@@ -484,9 +484,9 @@
       <div class="step-text"><div class="step-num">Step 1</div><h3>Tell us about your situation</h3><p>Answer questions about your timeline, school, and accounts.</p></div>
       <div class="mini" id="intakePanel">
         <div class="q" id="intakeQ1">Do you have a retirement account?</div>
-        <div class="opts" role="group" aria-labelledby="intakeQ1"><button type="button" class="opt" aria-pressed="false">401(k)</button><button type="button" class="opt" aria-pressed="false">IRA</button><button type="button" class="opt" aria-pressed="true">Both</button><button type="button" class="opt" aria-pressed="false">Neither</button></div>
+        <div class="opts" role="group" aria-labelledby="intakeQ1"><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">401(k)</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">IRA</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="true">Both</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">Neither</button></div>
         <div class="q" id="intakeQ2">When do you start school?</div>
-        <div class="opts" role="group" aria-labelledby="intakeQ2"><button type="button" class="opt" aria-pressed="true">Fall 2027</button><button type="button" class="opt" aria-pressed="false">Spring 2028</button><button type="button" class="opt" aria-pressed="false">Already enrolled</button></div>
+        <div class="opts" role="group" aria-labelledby="intakeQ2"><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="true">Fall 2027</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">Spring 2028</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">Already enrolled</button></div>
       </div>
     </div>
 
@@ -681,8 +681,9 @@
   }));
 
   // Intake panel: the step 1 answers are tappable. Tapping one selects it and, the first time,
-  // slides in a banner pointing to the email form. Only the event name goes to analytics, never
-  // the answer chosen.
+  // slides in a banner pointing to the email form. Each answer button carries
+  // data-umami-event="intake_panel_click", so Umami records the bare event name and the general
+  // click tracker below skips it: the answer chosen never reaches analytics.
   const intakeBanner = document.getElementById('intakeBanner');
   let bannerShownOnce = false;
   const setBanner = (on) => {
@@ -695,7 +696,6 @@
       const opt = e.target.closest('.opt');
       if (!opt) return;
       group.querySelectorAll('.opt').forEach(o => o.setAttribute('aria-pressed', String(o === opt)));
-      if (window.umami) window.umami.track('intake_panel_click');
       if (!bannerShownOnce) {
         bannerShownOnce = true;
         intakeBanner.hidden = false;
