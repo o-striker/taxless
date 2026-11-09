@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Retriever — Tax modeling for graduate students</title>
-<meta name="description" content="Retriever is tax modeling software for graduate students. It models thousands of scenarios so you can see the strategies that fit your situation.">
+<meta name="description" content="Retriever is tax modeling software for graduate students. It models thousands of scenarios to show the tax strategies that may apply to you.">
 <meta property="og:title" content="Retriever — Tax modeling for graduate students">
-<meta property="og:description" content="Retriever models thousands of scenarios so you can see the strategies that fit your situation.">
+<meta property="og:description" content="Retriever models thousands of scenarios to show the tax strategies that may apply to you.">
 <meta property="og:url" content="https://www.retriever.tax/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.retriever.tax/og-card.png">
@@ -15,12 +15,12 @@
 <link rel="canonical" href="https://www.retriever.tax/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Retriever — Tax modeling for graduate students">
-<meta name="twitter:description" content="Retriever models thousands of scenarios so you can see the strategies that fit your situation.">
+<meta name="twitter:description" content="Retriever models thousands of scenarios to show the tax strategies that may apply to you.">
 <meta name="twitter:image" content="https://www.retriever.tax/og-card.png">
 <link rel="icon" type="image/png" href="retriever-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="734b31b9-670c-4a86-adf6-1338f62a15c1" data-exclude-hash="true"></script>
 <script type="application/ld+json">
 {
@@ -32,7 +32,7 @@
       "name": "Retriever",
       "url": "https://www.retriever.tax/",
       "logo": "https://www.retriever.tax/retriever-logo.png",
-      "description": "Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students during their low-income school years, with IRS citations on every figure.",
+      "description": "Retriever is a free tax planning (not filing) tool that models tax strategies for graduate students during their low-income school years, with the math and the source behind every figure.",
       "email": "hello@retriever.tax",
       "founder": {
         "@type": "Person",
@@ -59,7 +59,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "Tax modeling software for graduate students. Retriever models tax-saving strategies such as Roth conversions, 0% long-term capital gains harvesting, and 529 contributions based on the numbers you enter, with IRS citations on every figure. It does not file taxes and does not provide tax advice.",
+      "description": "Tax modeling software for graduate students. Retriever models tax-saving strategies such as Roth conversions, 0% long-term capital gains harvesting, and 529 contributions based on the numbers you enter, with the math and the source behind every figure. It does not file taxes and does not provide tax advice.",
       "publisher": { "@id": "https://www.retriever.tax/#organization" }
     },
     {
@@ -100,14 +100,6 @@
         },
         {
           "@type": "Question",
-          "name": "What is the estimated savings counter?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -119,7 +111,7 @@
           "name": "Who built this? Are you tax professionals?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates."
+            "text": "No. Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates. No one on the team is a CPA or tax preparer."
           }
         },
         {
@@ -127,7 +119,15 @@
           "name": "Does this work if I'm not a US citizen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Retriever models federal and state taxes for students filing as US taxpayers. If you're a nonresident alien or have tax-treaty considerations, the tool won't capture those. Talk to a professional who handles international student taxes."
+            "text": "Retriever models federal and state taxes for students filing as US taxpayers. Talk to a professional who handles international student taxes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the estimated savings counter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee."
           }
         }
       ]
@@ -144,6 +144,9 @@
     --green-600: #1b5e3a;
     --green-700: #134529;
     --green-800: #0e3621;
+    --green-900: #0a2919;
+    --gold: #f2c36b;
+    --gold-hover: #e9b452;
     /* Stone grays */
     --stone-900: #1c1917;
     --stone-700: #44403c;
@@ -154,15 +157,12 @@
     --stone-200: #e7e5e4;
     --stone-100: #f5f5f4;
     --stone-50: #fafaf9;
-    --amber-50: #fffbeb;
     --rose-border: #fb7185;
     --rose-text: #e11d48;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -170,814 +170,426 @@
     color: var(--stone-900);
     line-height: 1.5;
   }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--green-500); outline-offset: 2px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  #how-it-works, #strategies, #faq { scroll-margin-top: 84px; }
+  #heroForm { scroll-margin-top: 120px; }
 
-  .icon { width: 14px; height: 14px; flex: none; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 21px; letter-spacing: -0.02em; text-decoration: none; }
+  .logo img { width: 30px; height: 30px; object-fit: contain; }
 
-  /* ---------- Top nav (mirrors beta app PublicNav — green sticky bar) ---------- */
-  .topnav {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: var(--green-700);
-  }
-  .topnav-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-  .topnav .wordmark { text-decoration: none; }
-  .topnav .wordmark img { width: 28px; height: 28px; }
-  .topnav .wordmark span { font-size: 18px; color: #ffffff; }
-  .topnav-links { display: flex; align-items: center; gap: 24px; }
-  .topnav-links a {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    transition: color .15s;
-  }
+  /* ---------- Dark band: nav + live savings counter ---------- */
+  .band-dark { background: radial-gradient(1200px 500px at 50% 120%, var(--green-700), var(--green-800) 60%, var(--green-900)); color: #ffffff; }
+  .topnav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; }
+  .topnav-links { display: flex; gap: 28px; font-size: 15px; color: rgba(255,255,255,.78); }
+  .topnav-links a { text-decoration: none; }
   .topnav-links a:hover { color: #ffffff; }
-  .topnav-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-  .nav-btn-primary {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--green-800);
-    background: #ffffff;
-    border-radius: 9999px;
-    padding: 8px 16px;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background .15s;
-  }
-  .nav-btn-primary:hover { background: var(--green-50); }
-  .nav-btn-ghost {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 9999px;
-    padding: 8px 16px;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background .15s;
-  }
-  .nav-btn-ghost:hover { background: rgba(255, 255, 255, 0.25); }
+  .topnav-actions { display: flex; gap: 10px; }
+  .btn-ghost-dark { padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); font-size: 14px; text-decoration: none; white-space: nowrap; }
+  .btn-ghost-dark:hover { background: rgba(255,255,255,.08); }
+  .btn-light { padding: 9px 16px; border-radius: 999px; background: #ffffff; color: var(--green-800); font-weight: 600; font-size: 14px; text-decoration: none; white-space: nowrap; }
+  .btn-light:hover { background: var(--green-50); }
 
-  /* Offset in-page anchor targets so the sticky header doesn't overlap them */
-  #signup, #how-it-works, #faq { scroll-margin-top: 76px; }
+  .counter-band { padding: 28px 0 44px; display: grid; grid-template-columns: 140px 1fr 160px; align-items: center; gap: 24px; }
+  .counter-band .mascot { width: 128px; justify-self: center; }
+  .counter-band .trust-main { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .counter-band .trust-label { font-size: 17px; color: rgba(255,255,255,.75); }
+  .counter-band .trust-amount { margin-top: 12px; font-size: 72px; font-weight: 600; letter-spacing: -0.025em; line-height: 1; font-variant-numeric: tabular-nums; color: #ffffff; }
+  .counter-band .trust-amount .plus { font-weight: 400; margin-left: 2px; color: var(--gold); }
+  .counter-band .trust-disclaimer { margin: 10px auto 0; max-width: 560px; font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,.55); }
+  .counter-band .counter-as-of { margin-top: 14px; font-size: 14px; color: rgba(255,255,255,.72); }
+  .chips { display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: rgba(255,255,255,.82); }
+  .chips span { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .chips i { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex: none; }
 
-  /* ---------- Hero ---------- */
-  .hero {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 36px 24px 64px;
-    text-align: center;
-  }
-
-  .wordmark {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .wordmark img { width: 34px; height: 34px; object-fit: contain; display: block; }
-  .wordmark span {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--stone-900);
-  }
-
-  .tagline {
-    margin-top: 36px;
-    font-size: 52px;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
-    color: var(--stone-900);
-  }
-
-  .subline {
-    margin: 20px auto 0;
-    max-width: 560px;
-    font-size: 19px;
-    color: var(--stone-600);
-    line-height: 1.6;
-  }
-
-  /* ---------- Trust strip ---------- */
-  .trust-strip {
-    margin-top: 44px;
-    background: linear-gradient(to right, var(--green-50), rgba(236,245,239,.6) 55%, rgba(255,251,235,.4));
-    border: 1px solid var(--stone-200);
-    border-radius: 24px;
-    padding: 32px 40px;
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    text-align: center;
-  }
-  .trust-strip .mascot {
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-    flex: none;
-  }
-  .trust-main { flex: 1; display: flex; flex-direction: column; align-items: center; }
-  .trust-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--stone-500);
-    font-weight: 500;
-  }
-  .trust-amount {
-    margin-top: 4px;
-    font-size: 56px;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1;
-    color: var(--green-700);
-    font-variant-numeric: tabular-nums;
-  }
-  .trust-amount .plus { font-weight: 400; margin-left: 2px; }
-  .trust-disclaimer {
-    margin-top: 10px;
-    font-size: 11px;
-    color: var(--stone-400);
-    line-height: 1.4;
-    max-width: 340px;
-  }
-  /* ---------- Savings counter (split-flap board, replaces the static figure when current) ---------- */
-  .counter-block { display: flex; flex-direction: column; align-items: center; }
-  .flap-board {
-    margin-top: 10px;
+  /* The split-flap board itself comes from lib/savings-counter-board.js; these rules restyle it
+     for the dark band. Tile size fills the band: --tiles is the digit count, set once the board mounts. */
+  .counter-band .flap-board {
+    margin-top: 16px;
     display: inline-flex;
     align-items: flex-end;
-    gap: 4px;
-    font-size: clamp(26px, 7vw, 46px);
+    gap: 6px;
+    font-size: min(70px, calc((100vw - 40px) / (var(--tiles, 6) * 0.98 + 1.15)));
     font-weight: 600;
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .flap-tile {
+  .counter-band .flap-tile {
     position: relative;
     width: 0.9em;
     height: 1.3em;
-    border-radius: 0.15em;
-    background: var(--green-800);
+    border-radius: 0.12em;
     color: #ffffff;
     perspective: 300px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 16px rgba(0,0,0,.35);
   }
-  .flap-half {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 50%;
-    overflow: hidden;
-    background: var(--green-800);
-  }
-  .flap-top { top: 0; border-radius: 0.15em 0.15em 0 0; }
-  .flap-bottom { bottom: 0; border-radius: 0 0 0.15em 0.15em; }
-  .flap-half b {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1.3em;
-    line-height: 1.3em;
-    text-align: center;
-    font-weight: 600;
-  }
-  .flap-top b { top: 0; }
-  .flap-bottom b { bottom: 0; }
-  .flap-tile::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 3;
-  }
-  .flap-fold {
-    z-index: 2;
-    transform-origin: bottom;
-    backface-visibility: hidden;
-    animation: flap-fold 45ms ease-in forwards;
-  }
+  .counter-band .flap-half { position: absolute; left: 0; right: 0; height: 50%; overflow: hidden; }
+  .counter-band .flap-top { top: 0; background: #1a4a30; border-radius: 0.12em 0.12em 0 0; }
+  .counter-band .flap-bottom { bottom: 0; background: #163f29; border-radius: 0 0 0.12em 0.12em; }
+  .counter-band .flap-half b { position: absolute; left: 0; right: 0; height: 1.3em; line-height: 1.3em; text-align: center; font-weight: 600; }
+  .counter-band .flap-top b { top: 0; }
+  .counter-band .flap-bottom b { bottom: 0; }
+  .counter-band .flap-tile::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #0b2a1a; z-index: 3; }
+  .counter-band .flap-fold { z-index: 2; transform-origin: bottom; backface-visibility: hidden; animation: flap-fold 45ms ease-in forwards; }
   @keyframes flap-fold { to { transform: rotateX(-90deg); } }
-  .flap-symbol { color: var(--green-700); text-align: center; padding: 0 0.04em; }
-  .counter-as-of { margin-top: 8px; font-size: 13px; color: var(--stone-600); }
-  @media (max-width: 400px) { .flap-board { gap: 3px; } }
+  .counter-band .flap-symbol { color: rgba(255,255,255,.55); text-align: center; padding: 0 0.02em 0.08em; font-size: 0.85em; }
+  .counter-band .flap-symbol:first-child { color: var(--gold); padding-right: 0.08em; }
 
-  .trust-chips {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: none;
-    padding-right: 8px;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--stone-600);
-    white-space: nowrap;
-  }
-  .chip .icon { color: var(--green-700); }
-
-  .hero-cta {
-    margin-top: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--green-600);
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 16px 48px;
-    border: none;
-    border-radius: 12px;
-    text-decoration: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    transition: background .15s;
-    cursor: pointer;
-  }
-  .hero-cta:hover { background: var(--green-700); }
-  .hero-cta .icon { width: 20px; height: 20px; }
-
-  /* ---------- Section shells ---------- */
-  .band { border-top: 1px solid var(--stone-200); }
-  .band-inner { max-width: 960px; margin: 0 auto; padding: 72px 24px; }
-
-  .eyebrow {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--green-700);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .section-title {
-    margin-top: 12px;
-    font-size: 34px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--stone-900);
-  }
-
-  /* ---------- Signup ---------- */
-  .signup-band { background: var(--stone-50); }
-  .signup-band .band-inner { text-align: center; }
-  .signup-sub {
-    margin: 12px auto 0;
-    max-width: 440px;
-    font-size: 17px;
-    color: var(--stone-600);
-  }
-
-  .form-card {
-    margin: 32px auto 0;
-    max-width: 440px;
-    background: #ffffff;
-    border: 1px solid var(--stone-200);
-    border-radius: 12px;
-    padding: 32px;
-    text-align: left;
-  }
-
-  .field { margin-bottom: 20px; }
-  .field label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--stone-700);
-    margin-bottom: 6px;
-  }
-  .field input,
-  .field textarea {
-    width: 100%;
-    font-family: inherit;
-    font-size: 16px;
-    color: var(--stone-900);
-    background: #ffffff;
-    border: 1px solid var(--stone-300);
-    border-radius: 8px;
-    padding: 12px 16px;
-    outline: none;
-    transition: border-color .15s;
-  }
-  .field input:focus,
-  .field textarea:focus { border-color: var(--green-600); }
-  .field input.invalid,
-  .field textarea.invalid { border-color: var(--rose-border); }
-  .field textarea { resize: vertical; min-height: 72px; }
-  .field-error {
-    display: none;
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--rose-text);
-  }
-  .field-error.show { display: block; }
-
-  .optional-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 0;
-    margin-bottom: 20px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--green-600);
-    cursor: pointer;
-  }
-  .optional-toggle:hover { color: var(--green-700); }
-  .optional-toggle .chevron { transition: transform .2s; }
-  .optional-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-  .optional-fields[hidden] { display: none; }
-
-  .beta-check {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 20px;
-    cursor: pointer;
-  }
-  .beta-check input {
-    flex: none;
-    width: 18px;
-    height: 18px;
-    margin-top: 2px;
-    accent-color: var(--green-600);
-    cursor: pointer;
-  }
-  .beta-check span { font-size: 15px; color: var(--stone-700); }
-
-  .submit-btn {
-    width: 100%;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 12px;
-    padding: 15px;
-    cursor: pointer;
-    transition: background .15s, color .15s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .submit-btn:disabled {
-    background: var(--stone-100);
-    color: var(--stone-400);
-    cursor: not-allowed;
-  }
-  .submit-btn:not(:disabled) { background: var(--green-600); color: #ffffff; }
-  .submit-btn:not(:disabled):hover { background: var(--green-700); }
-
-  .fine-print {
-    margin-top: 16px;
-    font-size: 12px;
-    color: var(--stone-500);
-    text-align: center;
-    line-height: 1.5;
-  }
-  .fine-print a { color: var(--stone-600); text-decoration: underline; }
-  .fine-print a:hover { color: var(--stone-900); }
-
-  .form-msg { display: none; text-align: center; padding: 8px 0; }
+  /* ---------- Split hero ---------- */
+  .hero { padding: 56px 0 96px; display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; }
+  .live { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--green-50); color: var(--green-700); font-size: 14px; font-weight: 500; }
+  .live b { width: 8px; height: 8px; border-radius: 50%; background: var(--green-500); box-shadow: 0 0 0 0 rgba(46,133,83,.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(46,133,83,0); } 100% { box-shadow: 0 0 0 0 rgba(46,133,83,0); } }
+  h1 { margin-top: 18px; font-size: 52px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 600; }
+  .sub { margin-top: 20px; font-size: 19px; line-height: 1.55; color: var(--stone-600); max-width: 30em; }
+  .email-form { margin-top: 32px; display: flex; gap: 8px; max-width: 460px; }
+  .email-form input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--stone-300); color: var(--stone-900); }
+  .email-form input:focus { outline: 2px solid var(--green-500); outline-offset: 1px; border-color: transparent; }
+  .email-form input.invalid { border-color: var(--rose-border); }
+  .btn-gold { font: inherit; font-weight: 600; font-size: 16px; padding: 14px 20px; border-radius: 10px; border: 0; background: var(--gold); color: var(--green-900); cursor: pointer; white-space: nowrap; }
+  .btn-gold:hover { background: var(--gold-hover); }
+  .btn-gold:disabled { opacity: .7; cursor: default; }
+  .field-error, .error-msg { display: none; margin-top: 8px; font-size: 14px; color: var(--rose-text); }
+  .field-error.show, .error-msg.show { display: block; }
+  .helper { margin-top: 12px; font-size: 14px; color: var(--stone-500); }
+  .fine { margin-top: 6px; font-size: 12px; color: var(--stone-500); }
+  .fine a { color: var(--stone-600); }
+  .form-msg { display: none; margin-top: 28px; padding: 18px 20px; border-radius: 12px; background: var(--green-50); max-width: 460px; }
   .form-msg.show { display: block; }
-  .success-title { font-size: 20px; font-weight: 600; color: var(--green-700); }
-  .success-body { margin-top: 8px; font-size: 15px; color: var(--stone-600); }
-  .error-msg {
-    display: none;
-    margin-top: 14px;
-    font-size: 14px;
-    color: var(--rose-text);
-    text-align: center;
-  }
-  .error-msg.show { display: block; }
+  .success-title { font-size: 18px; font-weight: 600; color: var(--green-700); }
+  .success-body { margin-top: 4px; font-size: 15px; color: var(--stone-600); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  /* ---------- How it works ---------- */
-  .how-band { background: #ffffff; }
-  .steps {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
-    text-align: left;
-  }
-  .step-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--green-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  .step-icon .icon { width: 20px; height: 20px; color: var(--green-700); }
-  .step-num {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--stone-400);
-    font-variant-numeric: tabular-nums;
-    margin-bottom: 8px;
-  }
-  .step h3 { font-size: 18px; font-weight: 500; color: var(--stone-900); margin-bottom: 8px; }
-  .step p { font-size: 16px; color: var(--stone-600); line-height: 1.6; }
+  /* ---------- Product panels (illustrations of the app, sample figures) ---------- */
+  .shot { border-radius: 16px; background: #ffffff; border: 1.5px solid var(--green-600); box-shadow: 6px 6px 0 var(--green-100); overflow: hidden; transform: rotate(-2deg); }
+  .shot-caption { margin-top: 18px; font-size: 12.5px; color: var(--stone-500); text-align: right; }
+  .app-bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--stone-200); background: var(--stone-50); }
+  .app-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--stone-300); }
+  .app-bar span { margin-left: 10px; font-size: 12px; color: var(--stone-500); }
+  .app { padding: 22px 24px 26px; }
+  .app-total { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--stone-200); }
+  .app-total small { display: block; font-size: 12px; color: var(--stone-500); }
+  .app-total strong { font-size: 36px; letter-spacing: -0.02em; color: var(--green-700); }
+  .app-total em { font-style: normal; font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--green-50); color: var(--green-700); white-space: nowrap; }
+  .strat { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--stone-100); }
+  .strat:last-child { border-bottom: 0; }
+  .strat b { font-size: 15px; font-weight: 600; }
+  .strat .amt { font-weight: 600; color: var(--green-600); font-size: 15px; }
+  .strat small { font-size: 12.5px; color: var(--stone-500); }
+  .bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--stone-100); overflow: hidden; }
+  .bar u { display: block; height: 100%; background: var(--green-500); }
+  .mini { border-radius: 14px; background: #ffffff; border: 1.5px solid var(--green-600); box-shadow: 6px 6px 0 var(--green-100); padding: 24px; }
+  .mini .q { font-size: 13px; color: var(--stone-500); }
+  .mini .q + .opts + .q { margin-top: 18px; }
+  .mini .opts { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .mini .opts span { padding: 10px 14px; border-radius: 10px; border: 1px solid var(--stone-300); background: #ffffff; font-size: 14px; }
+  .mini .opts span.on { border-color: var(--green-600); background: var(--green-50); color: var(--green-700); font-weight: 600; }
+  .mini .row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 8px 0; border-bottom: 1px dashed var(--stone-300); }
+  .mini .row:last-of-type { border: 0; }
+  .mini .row.total { font-weight: 600; }
+  .mini cite { display: block; margin-top: 12px; font-size: 12px; font-style: normal; color: var(--green-700); }
 
-  /* ---------- FAQ ---------- */
-  .faq-band .band-inner { max-width: 760px; }
-  .faq-list {
-    margin-top: 48px;
-    border-top: 1px solid var(--stone-200);
-    border-bottom: 1px solid var(--stone-200);
-  }
-  .faq-item + .faq-item { border-top: 1px solid var(--stone-200); }
-  .faq-q {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    background: none;
-    border: none;
-    font-family: inherit;
-    text-align: left;
-    padding: 20px 0;
-    cursor: pointer;
-  }
-  .faq-q span {
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--stone-900);
-    line-height: 1.4;
-  }
-  .faq-q .icon {
-    width: 20px;
-    height: 20px;
-    color: var(--stone-400);
-    transition: transform .2s;
-  }
-  .faq-q:hover .icon { color: var(--stone-600); }
-  .faq-item.open .faq-q .icon { transform: rotate(180deg); }
-  .faq-a {
-    display: none;
-    padding: 0 36px 20px 0;
-    margin-top: -4px;
-  }
-  .faq-item.open .faq-a { display: block; }
-  .faq-a p { font-size: 16px; color: var(--stone-600); line-height: 1.6; }
+  /* ---------- Sections ---------- */
+  .section { padding: 96px 0; }
+  h2 { font-size: 40px; letter-spacing: -0.03em; line-height: 1.1; font-weight: 600; }
+  .lede { margin-top: 12px; font-size: 18px; color: var(--stone-600); }
+  .step { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; margin-top: 72px; }
+  .step.flip .step-text { order: 2; }
+  .step-num { font-size: 15px; font-weight: 600; color: var(--green-600); }
+  .step h3 { margin-top: 8px; font-size: 28px; letter-spacing: -0.02em; font-weight: 600; }
+  .step p { margin-top: 12px; font-size: 17px; line-height: 1.6; color: var(--stone-600); max-width: 28em; }
+  .steps-caption { margin-top: 32px; font-size: 12.5px; color: var(--stone-500); }
 
-  /* ---------- Footer ---------- */
-  footer { background: var(--stone-50); border-top: 1px solid var(--stone-200); }
-  .footer-inner { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
-  .footer-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .footer-top .wordmark img { width: 28px; height: 28px; }
-  .footer-top .wordmark span { font-size: 18px; }
-  .footer-links { display: flex; align-items: center; gap: 24px; }
-  .footer-links a { font-size: 14px; color: var(--stone-600); text-decoration: none; }
+  .strategies { background: var(--green-50); }
+  .strat-list { margin-top: 48px; border-top: 1px solid var(--green-100); }
+  .strat-row { display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--green-100); align-items: baseline; }
+  .strat-row h3 { font-size: 22px; letter-spacing: -0.015em; font-weight: 600; color: var(--green-800); }
+  .strat-row p { font-size: 16.5px; line-height: 1.6; color: var(--stone-700); max-width: 34em; }
+
+  .faq-grid { display: grid; grid-template-columns: 4fr 7fr; gap: 72px; align-items: start; }
+  .faq-side { position: sticky; top: 100px; }
+  .faq-side p { margin-top: 14px; font-size: 17px; line-height: 1.55; color: var(--stone-600); max-width: 22em; }
+  .faq-side img { width: 132px; margin-top: 32px; }
+  .faq-ask { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--stone-200); font-size: 15px; color: var(--stone-600); }
+  .faq-ask a { color: var(--green-700); font-weight: 600; text-decoration-color: var(--green-100); text-underline-offset: 4px; text-decoration-thickness: 2px; }
+  .faq-list details { border-radius: 14px; padding: 4px 22px; margin-bottom: 8px; border: 1.5px solid transparent; transition: background .2s, border-color .2s; }
+  .faq-list details:not([open]) { border-radius: 0; border-bottom: 1px solid var(--stone-200); }
+  .faq-list details:not([open]):hover { background: var(--stone-50); border-radius: 14px; border-bottom-color: transparent; }
+  .faq-list details[open] { background: #ffffff; border-color: var(--green-600); box-shadow: 6px 6px 0 var(--green-100); }
+  .faq-list summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 18px 0; font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after { content: "+"; flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; font-weight: 400; background: var(--green-50); color: var(--green-700); transition: transform .2s, background .2s; }
+  .faq-list details[open] summary::after { transform: rotate(45deg); background: var(--gold); color: var(--green-900); }
+  .faq-list details p { padding: 0 48px 22px 0; font-size: 16.5px; line-height: 1.65; color: var(--stone-600); }
+
+  footer { background: var(--stone-50); border-top: 1px solid var(--stone-200); padding: 48px 0; font-size: 13px; color: var(--stone-500); line-height: 1.6; }
+  .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; color: var(--stone-900); }
+  .footer-top .logo { font-size: 18px; }
+  .footer-links { display: flex; gap: 24px; font-size: 14px; }
+  .footer-links a { color: var(--stone-600); text-decoration: none; }
   .footer-links a:hover { color: var(--stone-900); }
-  .footer-legal {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid var(--stone-200);
-  }
-  .footer-legal p { font-size: 12px; color: var(--stone-500); line-height: 1.6; }
-  .footer-legal p + p { margin-top: 6px; }
-  .footer-legal a { color: var(--stone-600); text-decoration: underline; }
-  .footer-legal a:hover { color: var(--stone-900); }
+  footer p + p { margin-top: 10px; }
 
-  /* ---------- Responsive ---------- */
+  /* ---------- Sticky call to action: top nav on desktop, bottom bar on phones ---------- */
+  .sticky-top { position: fixed; top: 0; left: 0; right: 0; z-index: 45; background: rgba(14,54,33,.96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #ffffff; transform: translateY(-100%); transition: transform .3s ease; box-shadow: 0 8px 24px -12px rgba(0,0,0,.5); }
+  .sticky-top.show { transform: none; }
+  .sticky-top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .sticky-top .right { display: flex; align-items: center; gap: 20px; font-size: 15px; color: rgba(255,255,255,.8); }
+  .sticky-bar { display: none; }
+
+  @media (max-width: 1023px) {
+    .hero, .step { grid-template-columns: 1fr; gap: 40px; }
+    .step.flip .step-text { order: 0; }
+    .shot { transform: none; }
+    .strat-row { grid-template-columns: 1fr; gap: 8px; }
+    .faq-grid { grid-template-columns: 1fr; gap: 32px; }
+    .faq-side { position: static; }
+    .faq-side img { display: none; }
+    .counter-band { grid-template-columns: 1fr; text-align: center; padding: 32px 0 48px; }
+    .counter-band .mascot { display: none; }
+    .chips { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 16px; }
+  }
   @media (max-width: 720px) {
-    .topnav-links { display: none; }
-    .topnav-inner { gap: 10px; padding: 0 16px; }
-    .topnav .wordmark span { font-size: 16px; }
-    .nav-btn-primary, .nav-btn-ghost { font-size: 13px; padding: 7px 12px; }
-    .tagline { font-size: 36px; }
-    .subline { font-size: 17px; }
-    .trust-strip { flex-direction: column; padding: 28px 24px; gap: 20px; }
-    .trust-strip .mascot { width: 128px; }
-    .trust-chips { flex-direction: row; flex-wrap: wrap; justify-content: center; column-gap: 20px; padding-right: 0; }
-    .trust-amount { font-size: 48px; }
-    .hero-cta { width: 100%; }
-    .band-inner { padding: 56px 24px; }
-    .section-title { font-size: 28px; }
-    .steps { grid-template-columns: 1fr; gap: 36px; }
+    .wrap { padding: 0 16px; }
+    .topnav-links, .btn-ghost-dark { display: none; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 30px; }
+    .hero { padding: 56px 0 64px; }
+    .section { padding: 64px 0; }
+    .email-form { flex-direction: column; }
+    .counter-band .trust-label { font-size: 18px; }
+    .counter-band .flap-board { gap: 3px; }
+    .counter-band .flap-tile { height: 1.5em; }
+    .counter-band .flap-half b { height: 1.5em; line-height: 1.5em; }
+    .counter-band .counter-as-of { font-size: 15px; color: rgba(255,255,255,.8); }
+    .counter-band .trust-disclaimer { font-size: 11.5px; line-height: 1.45; max-width: 300px; }
+    .counter-band .trust-amount { font-size: 56px; }
+    .faq-list details { padding: 2px 16px; }
+    .faq-list summary { font-size: 16.5px; }
+    .faq-list details p { padding-right: 0; }
+    .sticky-top { display: none; }
+    .sticky-bar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 10px 10px 16px; border-radius: 14px; background: var(--green-800); color: #ffffff; box-shadow: 0 24px 60px -16px rgba(0,0,0,.55); transform: translateY(160%); transition: transform .3s ease; }
+    .sticky-bar.show { transform: none; }
+    .sticky-bar[hidden] { display: none; }
+    .sticky-bar span { font-weight: 600; font-size: 15px; line-height: 1.25; min-width: 0; }
+    .sticky-bar .btn-gold { flex: none; padding: 13px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
-<!-- ---------- Top nav ---------- -->
-<header class="topnav">
-  <div class="topnav-inner">
-    <a class="wordmark" href="/" aria-label="Retriever home" data-umami-event="nav_click" data-umami-event-target="header-logo">
-      <img src="retriever-mascot.webp" alt="">
-      <span>Retriever</span>
-    </a>
-    <nav class="topnav-links">
-      <a href="#how-it-works" data-umami-event="nav_click" data-umami-event-target="header-how-it-works">How it works</a>
-      <a href="#faq" data-umami-event="nav_click" data-umami-event-target="header-faq">FAQ</a>
-      <a href="/terms" target="_blank" rel="noopener noreferrer" data-umami-event="nav_click" data-umami-event-target="header-terms">Terms</a>
-      <a href="/privacy" target="_blank" rel="noopener noreferrer" data-umami-event="nav_click" data-umami-event-target="header-privacy">Privacy</a>
+<!-- ---------- Dark band: nav + live savings counter ---------- -->
+<header class="band-dark">
+  <div class="wrap">
+    <nav class="topnav">
+      <a class="logo" href="/" aria-label="Retriever home" data-umami-event="nav_click" data-umami-event-target="header-logo"><img src="retriever-mascot.webp" alt="">Retriever</a>
+      <div class="topnav-links">
+        <a href="#how-it-works" data-umami-event="nav_click" data-umami-event-target="header-how-it-works">How it works</a>
+        <a href="#strategies" data-umami-event="nav_click" data-umami-event-target="header-strategies">Strategies</a>
+        <a href="#faq" data-umami-event="nav_click" data-umami-event-target="header-faq">FAQ</a>
+      </div>
+      <div class="topnav-actions">
+        <a class="btn-ghost-dark" href="/demo" data-umami-event="nav_click" data-umami-event-target="header-view-demo">View demo</a>
+        <a class="btn-light" href="https://beta.retriever.tax" data-umami-event="nav_click" data-umami-event-target="header-log-in">Log in</a>
+      </div>
     </nav>
-    <div class="topnav-actions">
-      <a class="nav-btn-ghost" href="/demo" data-umami-event="nav_click" data-umami-event-target="header-view-demo">View Demo</a>
-      <a class="nav-btn-primary" href="https://beta.retriever.tax" data-umami-event="nav_click" data-umami-event-target="header-visit-beta">Visit Beta</a>
+
+    <div class="counter-band">
+      <img class="mascot" src="retriever-mascot.webp" alt="">
+      <!-- Static fallback; lib/savings-counter-board.js swaps it for the live split-flap board when the daily figure is current. -->
+      <div class="trust-main">
+        <div class="trust-label">Potential additional savings</div>
+        <div class="trust-amount">$2,000<span class="plus">+</span></div>
+        <div class="trust-disclaimer">Actual results depend on the information you provide. Potential savings range is not a guarantee.</div>
+      </div>
+      <div class="chips">
+        <span><i></i>3 strategies</span>
+        <span><i></i>5 min to plan</span>
+        <span><i></i>Financial education</span>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- ---------- Hero ---------- -->
-<section class="hero">
-  <h1 class="tagline">Graduate students:<br>save money through taxes</h1>
-  <p class="subline">Retriever models thousands of scenarios so you can see the strategies that fit your situation.</p>
-
-  <div class="trust-strip">
-    <img class="mascot" src="retriever-mascot.webp" alt="Retriever mascot — golden retriever leaping with dollar bills">
-    <div class="trust-main">
-      <div class="trust-label">Potential additional savings</div>
-      <div class="trust-amount">$2,000<span class="plus">+</span></div>
-      <div class="trust-disclaimer">Actual results depend on the information you provide. Potential savings range is not a guarantee.</div>
-    </div>
-    <div class="trust-chips">
-      <div class="chip">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
-        3 strategies
-      </div>
-      <div class="chip">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        5 min to plan
-      </div>
-      <div class="chip">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
-        IRS-cited math
-      </div>
-    </div>
-  </div>
-
-  <a class="hero-cta" href="#signup" data-umami-event="button_click" data-umami-event-id="landing_join_beta">
-    Join the beta
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-  </a>
-</section>
-
-<!-- ---------- Beta signup ---------- -->
-<section class="band signup-band" id="signup">
-  <div class="band-inner">
-    <div class="eyebrow">Coming Summer 2026</div>
-    <h2 class="section-title">Join the beta</h2>
-    <p class="signup-sub">Get exclusive early access.</p>
-
-    <div class="form-card">
-      <div id="formFields">
-        <div class="field">
-          <label for="emailInput">Email</label>
-          <input type="email" id="emailInput" name="email" placeholder="alex@gmail.com" autocomplete="email">
+<!-- ---------- Split hero ---------- -->
+<main>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <span class="live"><b></b>Live now for graduate students</span>
+      <h1>Your grad school years are an opportunity.<br>Use them.</h1>
+      <p class="sub">Retriever models thousands of scenarios to show the tax strategies that may apply to you.</p>
+      <div id="heroForm">
+        <div id="formFields">
+          <form class="email-form" novalidate>
+            <label class="sr-only" for="emailInput">Email</label>
+            <input type="email" id="emailInput" name="email" placeholder="you@school.edu" autocomplete="email" required>
+            <button type="submit" class="btn-gold" id="submitBtn" data-umami-event="button_click" data-umami-event-id="landing_get_early_access">Get early access</button>
+          </form>
           <div class="field-error" id="emailError">Please enter a valid email address.</div>
+          <div class="error-msg" id="errorMsg">Something went wrong. Please try again.</div>
+          <p class="helper">We'll email you early access.</p>
+          <p class="fine">By joining, you agree to our <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
         </div>
-        <button type="button" class="optional-toggle" id="optionalToggle" aria-expanded="false" aria-controls="optionalFields">
-          <span>Add more details</span>
-          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="optional-fields" id="optionalFields" hidden>
-          <div class="field">
-            <label for="nameInput">Name (optional)</label>
-            <input type="text" id="nameInput" name="name" placeholder="Alex Rivera" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="phoneInput">Phone number (optional)</label>
-            <input type="tel" id="phoneInput" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
-            <div class="field-error" id="phoneError">Please enter a valid phone number.</div>
-          </div>
-          <div class="field">
-            <label for="interestInput">Why are you interested? (optional)</label>
-            <textarea id="interestInput" name="interest" rows="3" placeholder="I'm starting my MBA this fall and…"></textarea>
-          </div>
+        <div class="form-msg" id="successMsg" role="status">
+          <div class="success-title">You're in.</div>
+          <div class="success-body">We'll email you early access shortly.</div>
         </div>
-        <label class="beta-check" for="betaCheck">
-          <input type="checkbox" id="betaCheck">
-          <span>I want to participate in the beta</span>
-        </label>
-        <button class="submit-btn" id="submitBtn" disabled>Get updates</button>
-        <div class="error-msg" id="errorMsg">Something went wrong. Please try again.</div>
-        <p class="fine-print">By joining, you agree to our <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
-      </div>
-      <div class="form-msg" id="successMsg">
-        <div class="success-title">You're on the list.</div>
-        <div class="success-body">We'll be in touch when your spot in the beta opens.</div>
       </div>
     </div>
-  </div>
-</section>
+
+    <div>
+      <div class="shot" aria-label="Illustration of the Retriever results screen with sample figures" role="img">
+        <div class="app-bar"><i></i><i></i><i></i><span>beta.retriever.tax</span></div>
+        <div class="app">
+          <div class="app-total">
+            <div><small>Estimated additional savings</small><strong>$6,760</strong></div>
+            <em>3 strategies may apply</em>
+          </div>
+          <div class="strat"><b>Roth conversion in a low-income year</b><span class="amt">$3,840</span><small>Modeled at a 12% bracket</small><div class="bar"><u style="width:58%"></u></div></div>
+          <div class="strat"><b>0% long-term capital gains</b><span class="amt">$1,870</span><small>Modeled within the 0% federal bracket</small><div class="bar"><u style="width:28%"></u></div></div>
+          <div class="strat"><b>529 for your own tuition</b><span class="amt">$1,050</span><small>State deduction on contributions</small><div class="bar"><u style="width:15%"></u></div></div>
+        </div>
+      </div>
+      <p class="shot-caption">Illustrative example with sample data.</p>
+    </div>
+  </section>
+</div>
 
 <!-- ---------- How it works ---------- -->
-<section class="band how-band" id="how-it-works">
-  <div class="band-inner">
-    <div class="eyebrow">How it works</div>
-    <h2 class="section-title">Three steps. About fifteen minutes.</h2>
+<section class="section" id="how-it-works">
+  <div class="wrap">
+    <h2>Three steps. About five minutes.</h2>
+    <p class="lede">You answer questions, we run the numbers.</p>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
-        </div>
-        <div class="step-num">01</div>
-        <h3>Tell us about your situation</h3>
-        <p>Answer questions about your timeline, school, and accounts.</p>
+    <div class="step">
+      <div class="step-text"><div class="step-num">Step 1</div><h3>Tell us about your situation</h3><p>Answer questions about your timeline, school, and accounts.</p></div>
+      <div class="mini" role="img" aria-label="Illustration of the Retriever intake questions">
+        <div class="q">Do you have a retirement account?</div>
+        <div class="opts"><span>401(k)</span><span>IRA</span><span class="on">Both</span><span>Neither</span></div>
+        <div class="q">When do you start school?</div>
+        <div class="opts"><span class="on">Fall 2027</span><span>Spring 2028</span><span>Already enrolled</span></div>
       </div>
-      <div class="step">
-        <div class="step-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
-        </div>
-        <div class="step-num">02</div>
-        <h3>We run the numbers</h3>
-        <p>We check your tax rates and surface the saving strategies that may fit your situation. We use real tax math.</p>
+    </div>
+
+    <div class="step flip">
+      <div class="step-text"><div class="step-num">Step 2</div><h3>We run the numbers</h3><p>Retriever models tax rates from the numbers you enter and surfaces strategies. Every figure shows its math and the context behind it.</p></div>
+      <div class="mini" role="img" aria-label="Illustration of a Roth conversion estimate with its math and citation">
+        <div class="row"><span>Convert to Roth this year</span><span>$32,000</span></div>
+        <div class="row"><span>Tax at your 12% bracket now</span><span>$3,840</span></div>
+        <div class="row"><span>Tax at your expected 24% bracket later</span><span>$7,680</span></div>
+        <div class="row total"><span>Estimated difference</span><span>$3,840</span></div>
+        <cite>IRC §408A(d)(3)</cite>
       </div>
-      <div class="step">
-        <div class="step-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/></svg>
-        </div>
-        <div class="step-num">03</div>
-        <h3>See your strategies</h3>
-        <p>Get your list of strategies, steps, and reminders to take action.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-text"><div class="step-num">Step 3</div><h3>See your strategies</h3><p>Get your list of strategies, steps, and reminders to take action before the deadlines.</p></div>
+      <div class="mini" role="img" aria-label="Illustration of the Retriever strategy checklist">
+        <div class="row"><span>Roth IRA opened</span><span>Done</span></div>
+        <div class="row"><span>$32,000 conversion by Dec 31</span><span>Reminder set</span></div>
+        <div class="row total"><span>Gains within the 0% federal bracket</span><span>Next</span></div>
       </div>
+    </div>
+    <p class="steps-caption">Illustrative examples with sample data.</p>
+  </div>
+</section>
+
+<!-- ---------- Strategy showcase ---------- -->
+<section class="section strategies" id="strategies">
+  <div class="wrap">
+    <h2>What Retriever looks for</h2>
+    <p class="lede">Strategies that can apply in the years your income drops.</p>
+    <div class="strat-list">
+      <div class="strat-row"><h3>Roth conversion</h3><p>Moving pre-tax retirement savings to a Roth account can make sense in a year your income, and your tax rate, is low.</p></div>
+      <div class="strat-row"><h3>0% federal capital gains</h3><p>Selling appreciated investments may cost no federal tax on long-term gains while your taxable income stays in the 0% federal bracket.</p></div>
+      <div class="strat-row"><h3>529 plan for yourself</h3><p>Paying your own tuition through a 529 may earn a state tax deduction on contributions, in states that offer one.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ---------- FAQ ---------- -->
-<section class="band faq-band" id="faq">
-  <div class="band-inner">
-    <div class="eyebrow">Questions, answered</div>
-    <h2 class="section-title">Frequently asked questions</h2>
-
+<!-- ---------- Frequently asked questions ---------- -->
+<section class="section" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-side">
+      <h2>Questions, answered</h2>
+      <p>What Retriever does, what it costs, and how the numbers are made.</p>
+      <img src="retriever-mascot.webp" alt="">
+      <div class="faq-ask">Still have a question? <a href="mailto:hello@retriever.tax" onclick="if(window.umami) window.umami.track('contact-email-click');">Contact us</a></div>
+    </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>How can I save money on taxes when I'm earning less or no money?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>When you're earning a lower income it often means a lower tax bracket, which can open up strategies like Roth Conversion taxed at a lower rate, or selling investment gains at the 0% federal capital gains tax. Retriever models which of these could apply, based on the information you enter, and their estimated value.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>Do I have to pay for this?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>Retriever is free to use today.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>Is this tax advice?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>No, nothing on this site is tax advice. Retriever shows you modeled scenarios based on the information you enter.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>How accurate are these numbers? What are they based on?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>All of these numbers are calculated by a deterministic optimization engine that reads federal and state tax codes and considers thousands of potential decision points for the financial context you enter. The numbers are estimates based on the information you provide and current tax law. Retriever doesn't see your full tax situation, so treat the output as a starting point to discuss with a professional, not a final answer.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>What is the estimated savings counter?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>No, Retriever models tax savings strategies for before you file your taxes. It does not file for you, so you can continue to use any service to file taxes.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>Who built this? Are you tax professionals?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span>Does this work if I'm not a US citizen?</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a"><p>Retriever models federal and state taxes for students filing as US taxpayers. If you're a nonresident alien or have tax-treaty considerations, the tool won't capture those. Talk to a professional who handles international student taxes.</p></div>
-      </div>
+      <details open><summary>How can I save money on taxes when I'm earning less or no money?</summary><p>When you're earning a lower income it often means a lower tax bracket, which can open up strategies like Roth Conversion taxed at a lower rate, or selling investment gains at the 0% federal capital gains tax. Retriever models which of these could apply, based on the information you enter, and their estimated value.</p></details>
+      <details><summary>Do I have to pay for this?</summary><p>Retriever is free to use today.</p></details>
+      <details><summary>Is this tax advice?</summary><p>No, nothing on this site is tax advice. Retriever shows you modeled scenarios based on the information you enter.</p></details>
+      <details><summary>How accurate are these numbers? What are they based on?</summary><p>All of these numbers are calculated by a deterministic optimization engine that reads federal and state tax codes and considers thousands of potential decision points for the financial context you enter. The numbers are estimates based on the information you provide and current tax law. Retriever doesn't see your full tax situation, so treat the output as a starting point to discuss with a professional, not a final answer.</p></details>
+      <details><summary>Is this a competitor to TurboTax, FreeTaxUSA, or Sprintax?</summary><p>No, Retriever models tax savings strategies for before you file your taxes. It does not file for you, so you can continue to use any service to file taxes.</p></details>
+      <details><summary>Who built this? Are you tax professionals?</summary><p>No. Retriever was built by a Columbia MBA/MS candidate ('27) with 5 years building financial products at a fintech, after realizing how many tax strategies go unused by his classmates. No one on the team is a CPA or tax preparer.</p></details>
+      <details><summary>Does this work if I'm not a US citizen?</summary><p>Retriever models federal and state taxes for students filing as US taxpayers. Talk to a professional who handles international student taxes.</p></details>
+      <details><summary>What is the estimated savings counter?</summary><p>The sum of each user's latest estimated savings modeled by Retriever, based on the information they entered. It updates once a day. The sum is estimates, not necessarily realized savings, and not a guarantee.</p></details>
     </div>
   </div>
 </section>
+</main>
 
 <!-- ---------- Footer ---------- -->
 <footer>
-  <div class="footer-inner">
+  <div class="wrap">
     <div class="footer-top">
-      <div class="wordmark">
-        <img src="retriever-mascot.webp" alt="">
-        <span>Retriever</span>
-      </div>
+      <span class="logo"><img src="retriever-mascot.webp" alt="">Retriever</span>
       <div class="footer-links">
         <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
         <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>
         <a href="mailto:hello@retriever.tax" onclick="if(window.umami) window.umami.track('contact-email-click');">Contact</a>
       </div>
     </div>
-    <div class="footer-legal">
-      <p>Retriever is software that helps you model financial and tax decisions, currently in beta. We are not a tax preparer, CPA firm, law firm, or registered investment adviser, and Retriever does not provide tax, legal, accounting, or investment advice. All outputs are modeled projections based on the information you provide and the assumptions built into our models. Outputs may be incomplete or incorrect, may not reflect your actual results, and should not be relied on as accurate. Errors are possible. Consult a qualified professional before acting on any output.</p>
-      <p>© 2026 Retriever Works Inc.</p>
-    </div>
+    <p>Retriever is software that helps you model financial and tax decisions, currently in beta. We are not a tax preparer, CPA firm, law firm, or registered investment adviser, and Retriever does not provide tax, legal, accounting, or investment advice. All outputs are modeled projections based on the information you provide and the assumptions built into our models. Outputs may be incomplete or incorrect, may not reflect your actual results, and should not be relied on as accurate. Errors are possible. Consult a qualified professional before acting on any output.</p>
+    <p>© 2026 Retriever Works Inc.</p>
   </div>
 </footer>
 
+<!-- ---------- Sticky call to action (revealed by script once the hero form scrolls away) ---------- -->
+<div class="sticky-top" id="stickyTop" hidden>
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Retriever home"><img src="retriever-mascot.webp" alt="">Retriever</a>
+    <div class="right"><span>Retriever is live for Grad Students</span><button type="button" class="btn-gold sticky-go" data-umami-event="button_click" data-umami-event-id="landing_sticky_cta">Get early access</button></div>
+  </div>
+</div>
+<div class="sticky-bar" id="stickyBar" hidden>
+  <span>Retriever is live for Grad Students</span>
+  <button type="button" class="btn-gold sticky-go" data-umami-event="button_click" data-umami-event-id="landing_sticky_cta">Get early access</button>
+</div>
+
 <script>
-  const nameInput = document.getElementById('nameInput');
   const emailInput = document.getElementById('emailInput');
-  const phoneInput = document.getElementById('phoneInput');
-  const interestInput = document.getElementById('interestInput');
-  const betaCheck = document.getElementById('betaCheck');
   const submitBtn = document.getElementById('submitBtn');
   const errorMsg = document.getElementById('errorMsg');
-  const optionalToggle = document.getElementById('optionalToggle');
-  const optionalFields = document.getElementById('optionalFields');
-
-  // Reveal the optional name/phone/interest fields on demand
-  optionalToggle.addEventListener('click', () => {
-    const open = optionalFields.hasAttribute('hidden');
-    if (open) {
-      optionalFields.removeAttribute('hidden');
-      nameInput.focus();
-    } else {
-      optionalFields.setAttribute('hidden', '');
-    }
-    optionalToggle.setAttribute('aria-expanded', String(open));
-  });
+  const emailError = document.getElementById('emailError');
+  const heroForm = document.getElementById('heroForm');
 
   // Track first time user starts typing in email field (only once per page load)
   let typingTracked = false;
   emailInput.addEventListener('input', () => {
+    emailInput.classList.remove('invalid');
+    emailError.classList.remove('show');
     if (!typingTracked && window.umami) {
       window.umami.track('email-typing-started');
       typingTracked = true;
     }
   });
 
-  // Submission is gated on the beta-participation checkbox
-  betaCheck.addEventListener('change', () => {
-    submitBtn.disabled = !betaCheck.checked;
-    if (betaCheck.checked && window.umami) window.umami.track('beta-checkbox-checked');
-  });
-
-  function setInvalid(input, errorEl, on) {
-    input.classList.toggle('invalid', on);
-    errorEl.classList.toggle('show', on);
-  }
-
-  emailInput.addEventListener('input', () => setInvalid(emailInput, document.getElementById('emailError'), false));
-  phoneInput.addEventListener('input', () => setInvalid(phoneInput, document.getElementById('phoneError'), false));
-
-  function handleSubmit() {
-    if (!betaCheck.checked) return;
-
+  function handleSubmit(event) {
+    event.preventDefault();
     if (window.umami) window.umami.track('signup-submit-attempt');
 
     const email = emailInput.value.trim();
-    const phone = phoneInput.value.trim();
-    let valid = true;
-
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setInvalid(emailInput, document.getElementById('emailError'), true);
-      valid = false;
-    }
-    // Phone is optional; validate lightly only when provided
-    if (phone && !(/^[+()\-.\s\d]+$/.test(phone) && (phone.match(/\d/g) || []).length >= 7)) {
-      setInvalid(phoneInput, document.getElementById('phoneError'), true);
-      valid = false;
-    }
-    if (!valid) {
+      emailInput.classList.add('invalid');
+      emailError.classList.add('show');
       if (window.umami) window.umami.track('signup-validation-error');
       return;
     }
@@ -986,15 +598,18 @@
     submitBtn.textContent = 'Sending...';
     errorMsg.classList.remove('show');
 
+    // Same Formspree inbox and keys as before; Andrew adds each address to the beta allowlist,
+    // which sends the access email.
     fetch('https://formspree.io/f/mykoyeey', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: nameInput.value.trim(),
+        name: '',
         email: email,
-        phone: phone,
-        interest: interestInput.value.trim(),
-        beta_participation: 'yes'
+        phone: '',
+        interest: '',
+        beta_participation: 'yes',
+        source: 'hero'
       })
     })
     .then(res => {
@@ -1004,27 +619,43 @@
         if (window.umami) window.umami.track('signup-success');
       } else {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Get updates';
+        submitBtn.textContent = 'Get early access';
         errorMsg.classList.add('show');
         if (window.umami) window.umami.track('signup-server-error');
       }
     })
     .catch(() => {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Join the beta';
+      submitBtn.textContent = 'Get early access';
       errorMsg.classList.add('show');
       if (window.umami) window.umami.track('signup-network-error');
     });
   }
+  heroForm.querySelector('form').addEventListener('submit', handleSubmit);
 
-  // FAQ accordion — multiple panels can be open at once
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      const open = item.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-    });
-  });
+  // Sticky call to action: shown once the hero form has scrolled above the viewport. The phone bar
+  // also hides over the footer so it never covers the disclaimer.
+  const stickyTop = document.getElementById('stickyTop');
+  const stickyBar = document.getElementById('stickyBar');
+  stickyTop.hidden = false;
+  stickyBar.hidden = false;
+  let formPassed = false, footerOn = false;
+  const updateSticky = () => {
+    stickyTop.classList.toggle('show', formPassed);
+    stickyBar.classList.toggle('show', formPassed && !footerOn);
+  };
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      formPassed = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      updateSticky();
+    }).observe(heroForm);
+    new IntersectionObserver(([entry]) => { footerOn = entry.isIntersecting; updateSticky(); })
+      .observe(document.querySelector('footer'));
+  }
+  document.querySelectorAll('.sticky-go').forEach(btn => btn.addEventListener('click', () => {
+    heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (document.getElementById('formFields').style.display !== 'none') emailInput.focus({ preventScroll: true });
+  }));
 
   // Scroll-depth milestones — fires each depth once per page load
   const scrollFired = {};
@@ -1050,37 +681,31 @@
   window.addEventListener('error', e => trackClientError(e.error && e.error.name));
   window.addEventListener('unhandledrejection', e => trackClientError(e.reason && e.reason.name));
 
-  // Interactive-element click instrumentation — tracks clicks on real controls
-  // (links, buttons, inputs, etc.) that don't already carry their own
-  // data-umami-event. Clicks on plain body text (p, headings, whitespace) are
-  // ignored so they don't flood analytics with meaningless tag:p noise.
-  // Elements carrying their own data-umami-event (CTAs, header links) are already
-  // tracked by umami's built-in auto-tracker, so we skip them here to avoid double
-  // counting. We NEVER read input VALUES (PII) — only stable element
+  // Interactive-element click instrumentation — tracks clicks on real controls that don't already
+  // carry their own data-umami-event. We NEVER read input VALUES (PII) — only stable element
   // identifiers/labels (id, aria-label, or a control's own static text).
   document.addEventListener('click', e => {
     if (!window.umami) return;
     if (e.target.closest('[data-umami-event]')) return; // umami already tracks these
     const node = e.target.closest('a, button, input, textarea, select, label, summary, [role="button"]');
-    if (!node) return; // ignore clicks on plain text / non-interactive elements
+    if (!node) return;
     const tag = (node.tagName || '').toLowerCase() || 'unknown';
     let target = node.id || node.getAttribute('aria-label') || '';
-    // Only pull visible text from non-input controls (safe, static labels)
     if (!target && (tag === 'a' || tag === 'button' || tag === 'summary')) {
       target = (node.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80);
     }
     window.umami.track('click', { tag: tag, target: target || tag });
   }, true);
-
-  submitBtn.addEventListener('click', handleSubmit);
-  [nameInput, emailInput, phoneInput].forEach(el => {
-    el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
-  });
 </script>
 
 <script type="module">
   import { startSavingsCounter } from '/lib/savings-counter-board.js';
-  startSavingsCounter(document.querySelector('.trust-main'));
+  const counterMount = document.querySelector('.counter-band .trust-main');
+  startSavingsCounter(document.querySelector('.counter-band .trust-main')).then(() => {
+    // Size the tiles to fill the band: the board's font size reads the digit count.
+    const board = counterMount && counterMount.querySelector('.flap-board');
+    if (board) board.style.setProperty('--tiles', board.querySelectorAll('.flap-tile').length);
+  });
 </script>
 </body>
 </html>
