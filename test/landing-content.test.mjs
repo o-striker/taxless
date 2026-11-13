@@ -161,8 +161,10 @@ test('hero loading layer carries the beta compute screen copy, hidden from scree
   assert.ok(layer.length > 0 && body.includes('class="app-loading"'));
   assert.ok(layer.includes('aria-hidden="true"'));
   for (const s of ['Crunching your numbers', 'Modeling thousands of options.', 'Reading your financial context',
-    'Applying federal and state tax rules', 'Running thousands of scenarios with your financial context',
+    'Applying federal and state tax rules', 'Running through thousands of scenarios',
     'Calculations use tax brackets and tax code.']) assert.ok(layer.includes(s), s);
+  // Andrew shortened the third step on 2026-11-13; the beta still says "...with your financial context".
+  assert.ok(!layer.includes('scenarios with your financial context'));
 });
 
 test('panel motion falls back to the static page', () => {
