@@ -336,6 +336,8 @@
   .fake-cursor { display: none; }
   .motion .fake-cursor { display: block; position: absolute; left: 0; top: 0; width: 22px; height: 22px; pointer-events: none; opacity: 0; z-index: 3; transition: transform .6s cubic-bezier(.3,.7,.2,1), opacity .25s; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
   .fake-cursor.tap { animation: panel-tap .25s ease; }
+  /* Until the pointer reaches it, a pressed answer is drawn unpressed. aria-pressed itself never changes. */
+  .motion #intakePanel:not(.played) .opt[aria-pressed="true"]:not(.shown) { border-color: var(--stone-300); background: #ffffff; color: var(--stone-900); font-weight: 400; }
   .mini .opt.pulse, .mini .status.pop { animation: panel-pop .35s ease; }
   /* Steps 2 and 3: rows build in. */
   .motion .mini.rows .row, .motion .mini.rows cite { opacity: 0; transform: translateX(-8px); transition: opacity .35s ease, transform .35s ease; }
@@ -843,7 +845,7 @@
   });
 </script>
 
-<script type="module">
+<script type="module" async>
   // Product panel motion. If the driver can't load or start, fall back to the static panels.
   import('/lib/panel-motion-board.js')
     .then((m) => m.startPanelMotion(document))

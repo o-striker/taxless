@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { formatDollars, parseDollars, easedDollars, computeStepStates, computeBarPercent } = await import('../lib/panel-motion.js');
+const { formatDollars, parseDollars, easedDollars, computeStepStates, computeBarPercent, isHalfVisible } = await import('../lib/panel-motion.js');
 
 test('formatDollars and parseDollars round trip', () => {
   assert.equal(formatDollars(6760), '$6,760');
@@ -31,4 +31,13 @@ test('computeStepStates walks the three beta steps', () => {
 
 test('computeBarPercent matches the beta cadence', () => {
   assert.deepEqual([-1, 0, 1, 2, 3].map(computeBarPercent), [0, 22, 58, 92, 100]);
+});
+
+test('isHalfVisible: half the panel, or half the screen for panels taller than twice the screen', () => {
+  // Regression (2026-11-13, final review): a threshold of 0.5 alone never fires for a panel taller
+  // than twice the viewport (400% zoom), which left the hero on its loading layer at $0.
+  assert.equal(isHalfVisible({ intersectionRatio: 0.5, visibleHeight: 100, viewportHeight: 900 }), true);
+  assert.equal(isHalfVisible({ intersectionRatio: 0.3, visibleHeight: 100, viewportHeight: 900 }), false);
+  assert.equal(isHalfVisible({ intersectionRatio: 0.45, visibleHeight: 256, viewportHeight: 256 }), true);
+  assert.equal(isHalfVisible({ intersectionRatio: 0, visibleHeight: 0, viewportHeight: 256 }), false);
 });

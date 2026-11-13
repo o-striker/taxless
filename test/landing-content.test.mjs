@@ -194,5 +194,20 @@ test('panel motion has a timer fallback when module scripts never run', () => {
   const driver = readFileSync(new URL('../lib/panel-motion-board.js', import.meta.url), 'utf8');
   assert.ok(driver.includes('window.panelMotionStarted = true'));
   // The driver loads from its own module script, so a counter failure can't stop it.
-  assert.match(html, /<script type="module">\s*\/\/ Product panel motion[\s\S]*?import\('\/lib\/panel-motion-board\.js'\)/);
+  assert.match(html, /<script type="module"( async)?>\s*\/\/ Product panel motion[\s\S]*?import\('\/lib\/panel-motion-board\.js'\)/);
+});
+
+test('intake panel keeps its pressed answers while it waits to play', () => {
+  // Regression (2026-11-13, final review): the driver cleared every aria-pressed until the pointer
+  // reached each answer, so a visitor who tapped one question early left the other unanswered, and
+  // screen readers heard all seven options as not pressed. The waiting look is CSS only now.
+  const driver = readFileSync(new URL('../lib/panel-motion-board.js', import.meta.url), 'utf8');
+  assert.ok(!driver.includes("'aria-pressed'"));
+  assert.ok(html.includes('.motion #intakePanel:not(.played) .opt[aria-pressed="true"]:not(.shown)'));
+});
+
+test('panel motion driver does not wait behind the analytics script', () => {
+  // Regression (2026-11-13, final review): a non-async module script runs after deferred scripts,
+  // so a stalled Umami request held the hero on its loading layer.
+  assert.match(html, /<script type="module" async>\s*\/\/ Product panel motion/);
 });
