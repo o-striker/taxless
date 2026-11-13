@@ -153,3 +153,61 @@ test('intake banner: hidden without JavaScript, sends people to the email form, 
   assert.ok(html.includes("if (e.target.closest('[data-umami-event]')) return;"));
   assert.ok(!html.includes("umami.track('intake_panel_click'"));
 });
+
+// Product panel motion (2026-11-13): each drawn panel plays once on scroll, then rests on the
+// figures above. The hero opens on the beta compute screen. Motion itself is checked live.
+test('hero loading layer carries the beta compute screen copy, hidden from screen readers', () => {
+  const layer = body.slice(body.indexOf('class="app-loading"'), body.indexOf('class="strat"'));
+  assert.ok(layer.length > 0 && body.includes('class="app-loading"'));
+  assert.ok(layer.includes('aria-hidden="true"'));
+  for (const s of ['Crunching your numbers', 'Modeling thousands of options.', 'Reading your financial context',
+    'Applying federal and state tax rules', 'Running through thousands of scenarios',
+    'Calculations use tax brackets and tax code.']) assert.ok(layer.includes(s), s);
+  // Andrew shortened the third step on 2026-11-13; the beta still says "...with your financial context".
+  assert.ok(!layer.includes('scenarios with your financial context'));
+});
+
+test('panel motion falls back to the static page', () => {
+  const head = html.slice(0, html.indexOf('<body'));
+  assert.ok(head.includes("matchMedia('(prefers-reduced-motion: reduce)')"));
+  assert.ok(head.includes("'IntersectionObserver' in window"));
+  assert.match(html, /import\('\/lib\/panel-motion-board\.js'\)[\s\S]*?\.catch\(\(\) => document\.documentElement\.classList\.remove\('motion'\)\)/);
+  assert.ok(!html.includes('mockupReplay'));
+});
+
+test('static checklist keeps its final statuses', () => {
+  for (const s of ['data-final="Done">', 'data-final="Reminder set">', 'data-final="Next">']) assert.ok(body.includes(s), s);
+});
+
+test('the animated pointer never clicks, so the intake banner and analytics see only real taps', () => {
+  const driver = readFileSync(new URL('../lib/panel-motion-board.js', import.meta.url), 'utf8');
+  assert.ok(driver.includes('fake-cursor'));
+  assert.ok(!driver.includes('.click(') && !driver.includes('dispatchEvent'));
+});
+
+test('panel motion has a timer fallback when module scripts never run', () => {
+  // Regression (2026-11-13, found in review of this branch): the .catch above can't fire if the
+  // module script itself fails or the browser can't run modules, which would leave the hero on its
+  // loading layer. The head script drops html.motion unless the driver reports it started.
+  const head = html.slice(0, html.indexOf('<body'));
+  assert.match(head, /setTimeout\([\s\S]*?window\.panelMotionStarted[\s\S]*?classList\.remove\('motion'\)/);
+  const driver = readFileSync(new URL('../lib/panel-motion-board.js', import.meta.url), 'utf8');
+  assert.ok(driver.includes('window.panelMotionStarted = true'));
+  // The driver loads from its own module script, so a counter failure can't stop it.
+  assert.match(html, /<script type="module"( async)?>\s*\/\/ Product panel motion[\s\S]*?import\('\/lib\/panel-motion-board\.js'\)/);
+});
+
+test('intake panel keeps its pressed answers while it waits to play', () => {
+  // Regression (2026-11-13, final review): the driver cleared every aria-pressed until the pointer
+  // reached each answer, so a visitor who tapped one question early left the other unanswered, and
+  // screen readers heard all seven options as not pressed. The waiting look is CSS only now.
+  const driver = readFileSync(new URL('../lib/panel-motion-board.js', import.meta.url), 'utf8');
+  assert.ok(!driver.includes("'aria-pressed'"));
+  assert.ok(html.includes('.motion #intakePanel:not(.played) .opt[aria-pressed="true"]:not(.shown)'));
+});
+
+test('panel motion driver does not wait behind the analytics script', () => {
+  // Regression (2026-11-13, final review): a non-async module script runs after deferred scripts,
+  // so a stalled Umami request held the hero on its loading layer.
+  assert.match(html, /<script type="module" async>\s*\/\/ Product panel motion/);
+});

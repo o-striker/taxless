@@ -18,6 +18,16 @@
 <meta name="twitter:description" content="Retriever models thousands of scenarios to show the tax strategies that may apply to you.">
 <meta name="twitter:image" content="https://www.retriever.tax/og-card.png">
 <link rel="icon" type="image/png" href="retriever-logo.png">
+<script>
+  // Product panel motion runs only with this class; lib/panel-motion-board.js removes nothing it didn't add.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('motion');
+    // If the driver never starts (module scripts blocked or failed), show the static panels.
+    window.addEventListener('load', () => setTimeout(() => {
+      if (!window.panelMotionStarted) document.documentElement.classList.remove('motion');
+    }, 2000));
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -287,6 +297,64 @@
   .mini .opt:hover { border-color: var(--green-500); }
   .mini .opt[aria-pressed="true"] { border-color: var(--green-600); background: var(--green-50); color: var(--green-700); font-weight: 600; }
 
+
+  /* ---------- Product panel motion: each panel plays once on scroll (lib/panel-motion-board.js).
+     Every rule is gated on html.motion, so without it the panels are static. ---------- */
+  .app { position: relative; }
+  .app-total strong, .strat .amt, .mini .row span:last-child { font-variant-numeric: tabular-nums; }
+  .app-loading { display: none; }
+  .motion .app-loading { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 18px 28px; background: #ffffff; transition: opacity .3s ease, visibility 0s .3s; }
+  .motion .shot.loaded .app-loading { opacity: 0; visibility: hidden; }
+  /* Hero loading layer: the beta compute screen ("Crunching your numbers"), scaled to the panel. */
+  .compute-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 18px; }
+  .compute-icon { position: relative; width: 48px; height: 48px; margin-bottom: 14px; }
+  .compute-icon .ring { position: absolute; inset: 0; border-radius: 50%; background: #b0d3bb; animation: panel-ping 2s cubic-bezier(0,0,.2,1) infinite; }
+  .compute-icon .core { position: absolute; inset: 0; border-radius: 50%; background: var(--green-600); box-shadow: 0 10px 15px -3px rgba(27,94,58,.25); display: grid; place-items: center; animation: panel-core-pulse 2s ease-in-out infinite; }
+  .compute-icon svg { width: 22px; height: 22px; }
+  .compute-title { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 22px; letter-spacing: -0.01em; color: var(--stone-900); }
+  .compute-sub { margin-top: 4px; font-size: 13px; color: var(--stone-500); }
+  .compute-steps { display: grid; gap: 4px; margin-bottom: 16px; }
+  .compute-step { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 7px 10px; font-size: 13px; color: #a8a29e; transition: background-color .5s, color .5s; }
+  .compute-step.active { background: var(--green-50); color: var(--stone-900); font-weight: 500; }
+  .compute-step.done { color: var(--stone-600); }
+  .compute-mark { flex: none; width: 20px; height: 20px; display: grid; place-items: center; }
+  .compute-mark .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone-300); }
+  .compute-mark .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--green-600); border-top-color: transparent; animation: panel-spin .7s linear infinite; }
+  .compute-mark .check { width: 20px; height: 20px; border-radius: 50%; background: var(--green-600); display: grid; place-items: center; animation: panel-step-pop 340ms cubic-bezier(.2,.7,.3,1); }
+  .compute-mark .check svg { width: 12px; height: 12px; }
+  .compute-bar { height: 6px; border-radius: 999px; background: var(--stone-100); overflow: hidden; margin-bottom: 10px; }
+  .compute-bar div { position: relative; height: 100%; width: 0; border-radius: 999px; background: var(--green-600); overflow: hidden; transition: width 950ms cubic-bezier(.22,.61,.36,1); }
+  .compute-bar span { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); animation: panel-shimmer 1.4s ease-in-out infinite; }
+  .compute-note { font-size: 11.5px; color: #a8a29e; text-align: center; }
+  /* Hero results: rows slide in, bars grow from zero to their width. */
+  .motion .shot .strat, .motion .shot .app-total em { opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .35s ease; }
+  .motion .shot .strat.in, .motion .shot .app-total em.in { opacity: 1; transform: none; }
+  .motion .shot .bar u { width: 0 !important; transition: width .7s cubic-bezier(.2,.7,.2,1); }
+  .motion .shot .strat.in .bar u { width: var(--w) !important; }
+  /* Step 1: the pointer. */
+  #intakePanel { position: relative; }
+  .fake-cursor { display: none; }
+  .motion .fake-cursor { display: block; position: absolute; left: 0; top: 0; width: 22px; height: 22px; pointer-events: none; opacity: 0; z-index: 3; transition: transform .6s cubic-bezier(.3,.7,.2,1), opacity .25s; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+  .fake-cursor.tap { animation: panel-tap .25s ease; }
+  /* Until the pointer reaches it, a pressed answer is drawn unpressed. aria-pressed itself never changes. */
+  .motion #intakePanel:not(.played) .opt[aria-pressed="true"]:not(.shown) { border-color: var(--stone-300); background: #ffffff; color: var(--stone-900); font-weight: 400; }
+  .mini .opt.pulse, .mini .status.pop { animation: panel-pop .35s ease; }
+  /* Steps 2 and 3: rows build in. */
+  .motion .mini.rows .row, .motion .mini.rows cite { opacity: 0; transform: translateX(-8px); transition: opacity .35s ease, transform .35s ease; }
+  .motion .mini.rows .row.in, .motion .mini.rows cite.in { opacity: 1; transform: none; }
+  .mini .status { display: inline-flex; align-items: center; gap: 6px; }
+  .mini .status svg { width: 15px; height: 15px; }
+  .mini .status .tick { stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .4s ease .1s; }
+  .mini .status.done { color: var(--green-600); }
+  .mini .status.done .tick { stroke-dashoffset: 0; }
+  @keyframes panel-ping { 0% { transform: scale(.92); opacity: .5; } 70%, 100% { transform: scale(1.9); opacity: 0; } }
+  @keyframes panel-core-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @keyframes panel-step-pop { 0% { transform: scale(.4); } 60% { transform: scale(1.14); } 100% { transform: scale(1); } }
+  @keyframes panel-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(220%); } }
+  @keyframes panel-spin { to { transform: rotate(360deg); } }
+  @keyframes panel-tap { 50% { scale: .8; } }
+  @keyframes panel-pop { 50% { transform: scale(1.06); } }
+
   /* ---------- Intake banner: shown after a visitor taps an answer in the step 1 panel ---------- */
   .intake-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--green-800); color: #ffffff; box-shadow: 0 8px 24px -12px rgba(0,0,0,.5); transform: translateY(-100%); transition: transform .3s ease; }
   .intake-banner.show { transform: none; }
@@ -460,13 +528,28 @@
       <div class="shot" aria-label="Illustration of the Retriever results screen with sample figures" role="img">
         <div class="app-bar"><i></i><i></i><i></i><span>beta.retriever.tax</span></div>
         <div class="app">
+          <!-- Loading layer: the beta compute screen. Shown only with html.motion, until the panel plays. -->
+          <div class="app-loading" aria-hidden="true">
+            <div class="compute-head">
+              <div class="compute-icon"><span class="ring"></span><span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l2 2 4-4"/><path d="M3 7l2 2 4-4"/><line x1="13" y1="6" x2="21" y2="6"/><line x1="13" y1="12" x2="21" y2="12"/><line x1="13" y1="18" x2="21" y2="18"/></svg></span></div>
+              <div class="compute-title">Crunching your numbers</div>
+              <div class="compute-sub">Modeling thousands of options.</div>
+            </div>
+            <div class="compute-steps">
+              <div class="compute-step"><span class="compute-mark"><span class="dot"></span></span><span>Reading your financial context</span></div>
+              <div class="compute-step"><span class="compute-mark"><span class="dot"></span></span><span>Applying federal and state tax rules</span></div>
+              <div class="compute-step"><span class="compute-mark"><span class="dot"></span></span><span>Running through thousands of scenarios</span></div>
+            </div>
+            <div class="compute-bar"><div><span></span></div></div>
+            <p class="compute-note">Calculations use tax brackets and tax code.</p>
+          </div>
           <div class="app-total">
             <div><small>Estimated additional savings</small><strong>$6,760</strong></div>
             <em>3 strategies may apply</em>
           </div>
-          <div class="strat"><b>Roth conversion in a low-income year</b><span class="amt">$3,840</span><small>Modeled at a 12% bracket</small><div class="bar"><u style="width:58%"></u></div></div>
-          <div class="strat"><b>0% long-term capital gains</b><span class="amt">$1,870</span><small>Modeled within the 0% federal bracket</small><div class="bar"><u style="width:28%"></u></div></div>
-          <div class="strat"><b>529 for your own tuition</b><span class="amt">$1,050</span><small>State deduction on contributions</small><div class="bar"><u style="width:15%"></u></div></div>
+          <div class="strat"><b>Roth conversion in a low-income year</b><span class="amt">$3,840</span><small>Modeled at a 12% bracket</small><div class="bar"><u style="width:58%;--w:58%"></u></div></div>
+          <div class="strat"><b>0% long-term capital gains</b><span class="amt">$1,870</span><small>Modeled within the 0% federal bracket</small><div class="bar"><u style="width:28%;--w:28%"></u></div></div>
+          <div class="strat"><b>529 for your own tuition</b><span class="amt">$1,050</span><small>State deduction on contributions</small><div class="bar"><u style="width:15%;--w:15%"></u></div></div>
         </div>
       </div>
       <p class="shot-caption">Illustrative example with sample data.</p>
@@ -483,6 +566,7 @@
     <div class="step">
       <div class="step-text"><div class="step-num">Step 1</div><h3>Tell us about your situation</h3><p>Answer questions about your timeline, school, and accounts.</p></div>
       <div class="mini" id="intakePanel">
+        <svg class="fake-cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#1c1917" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/></svg>
         <div class="q" id="intakeQ1">Do you have a retirement account?</div>
         <div class="opts" role="group" aria-labelledby="intakeQ1"><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">401(k)</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">IRA</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="true">Both</button><button type="button" class="opt" data-umami-event="intake_panel_click" aria-pressed="false">Neither</button></div>
         <div class="q" id="intakeQ2">When do you start school?</div>
@@ -492,7 +576,7 @@
 
     <div class="step flip">
       <div class="step-text"><div class="step-num">Step 2</div><h3>We run the numbers</h3><p>Retriever models tax rates from the numbers you enter and surfaces strategies. Every figure shows its math and the context behind it.</p></div>
-      <div class="mini" role="img" aria-label="Illustration of a Roth conversion estimate with its math and citation">
+      <div class="mini rows" id="mathPanel" role="img" aria-label="Illustration of a Roth conversion estimate with its math and citation">
         <div class="row"><span>Convert to Roth this year</span><span>$32,000</span></div>
         <div class="row"><span>Tax at your 12% bracket now</span><span>$3,840</span></div>
         <div class="row"><span>Tax at your expected 24% bracket later</span><span>$7,680</span></div>
@@ -503,10 +587,10 @@
 
     <div class="step">
       <div class="step-text"><div class="step-num">Step 3</div><h3>See your strategies</h3><p>Get your list of strategies, steps, and reminders to take action before the deadlines.</p></div>
-      <div class="mini" role="img" aria-label="Illustration of the Retriever strategy checklist">
-        <div class="row"><span>Roth IRA opened</span><span>Done</span></div>
-        <div class="row"><span>$32,000 conversion by Dec 31</span><span>Reminder set</span></div>
-        <div class="row total"><span>Gains within the 0% federal bracket</span><span>Next</span></div>
+      <div class="mini rows" id="checklistPanel" role="img" aria-label="Illustration of the Retriever strategy checklist">
+        <div class="row"><span>Roth IRA opened</span><span class="status done" data-final="Done"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="tick" d="M4.5 8.2l2.4 2.3 4.6-4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Done</span></div>
+        <div class="row"><span>$32,000 conversion by Dec 31</span><span class="status" data-final="Reminder set">Reminder set</span></div>
+        <div class="row total"><span>Gains within the 0% federal bracket</span><span class="status" data-final="Next">Next</span></div>
       </div>
     </div>
     <p class="steps-caption">Illustrative examples with sample data.</p>
@@ -759,6 +843,13 @@
     const board = counterMount && counterMount.querySelector('.flap-board');
     if (board) board.style.setProperty('--tiles', board.querySelectorAll('.flap-tile').length);
   });
+</script>
+
+<script type="module" async>
+  // Product panel motion. If the driver can't load or start, fall back to the static panels.
+  import('/lib/panel-motion-board.js')
+    .then((m) => m.startPanelMotion(document))
+    .catch(() => document.documentElement.classList.remove('motion'));
 </script>
 </body>
 </html>
