@@ -196,8 +196,6 @@
   .topnav-links a { text-decoration: none; }
   .topnav-links a:hover { color: #ffffff; }
   .topnav-actions { display: flex; gap: 10px; }
-  .btn-ghost-dark { padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); font-size: 14px; text-decoration: none; white-space: nowrap; }
-  .btn-ghost-dark:hover { background: rgba(255,255,255,.08); }
   .btn-light { padding: 9px 16px; border-radius: 999px; background: #ffffff; color: var(--green-800); font-weight: 600; font-size: 14px; text-decoration: none; white-space: nowrap; }
   .btn-light:hover { background: var(--green-50); }
 
@@ -429,7 +427,7 @@
   }
   @media (max-width: 720px) {
     .wrap { padding: 0 16px; }
-    .topnav-links, .btn-ghost-dark { display: none; }
+    .topnav-links { display: none; }
     h1 { font-size: 40px; }
     h2 { font-size: 30px; }
     .hero { padding: 56px 0 64px; }
@@ -475,7 +473,6 @@
         <a href="#faq" data-umami-event="nav_click" data-umami-event-target="header-faq">FAQ</a>
       </div>
       <div class="topnav-actions">
-        <a class="btn-ghost-dark" href="/demo" data-umami-event="nav_click" data-umami-event-target="header-view-demo">View demo</a>
         <a class="btn-light" href="https://beta.retriever.tax" data-umami-event="nav_click" data-umami-event-target="header-log-in">Log in</a>
       </div>
     </nav>

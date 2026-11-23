@@ -1,7 +1,6 @@
 import { parseCounterResponse } from '../lib/savings-counter.js';
 
-// GET /api/savings-counter: the public estimated savings figure for the landing page and the
-// demo at retriever.tax/demo (same origin, so the demo bundle never names Supabase).
+// GET /api/savings-counter: the public estimated savings figure for the landing page.
 //   200 { as_of_date, total_estimated_savings } while the daily figure is current
 //   204 when there is no current figure (the page keeps its static "$2,000+")
 // Postgres decides "current" (current_savings_counter). Cached at the edge for five minutes so
