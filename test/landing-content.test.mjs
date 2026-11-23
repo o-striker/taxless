@@ -211,3 +211,15 @@ test('panel motion driver does not wait behind the analytics script', () => {
   // so a stalled Umami request held the hero on its loading layer.
   assert.match(html, /<script type="module" async>\s*\/\/ Product panel motion/);
 });
+
+test('the demo is retired: no link, no listing, and the old address sends visitors home', () => {
+  // Decision (Andrew, 2026-11-22): the demo experience is retired from every deployed site.
+  assert.ok(!/demo/i.test(html), 'index.html still mentions the demo');
+  for (const file of ['sitemap.xml', 'llms.txt'])
+    assert.ok(!/demo/i.test(readFileSync(new URL(`../${file}`, import.meta.url), 'utf8')), file);
+  const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+  assert.ok(!JSON.stringify(vercel.rewrites ?? []).includes('demo'), 'vercel.json still proxies the demo');
+  const redirects = Object.fromEntries((vercel.redirects ?? []).map((redirect) => [redirect.source, redirect.destination]));
+  assert.equal(redirects['/demo'], '/');
+  assert.equal(redirects['/demo/:path*'], '/');
+});
